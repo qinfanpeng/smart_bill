@@ -9,7 +9,7 @@ describe Bill do
   it { should respond_to(:count) }
 
 
-  describe "attributes validat: " do
+  describe "attributes validate: " do
     context "when description is not present" do
       before { bill.description = '' }
       it { should_not be_valid }

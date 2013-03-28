@@ -1,0 +1,27 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh_CN:
+  helpers:
+    actions: "操作"
+    id: "序号"
+    description: "明细"
+    count: '金额'
+    created at: '日期'
+    links:
+      back: "返回"
+      cancel: "取消"
+      confirm: "你确定要删除吗?"
+      destroy: "删除"
+      new: "新建"
+      edit: '编辑'
+    buttons:
+      Create Bill: '创建账单'
+      Update Bill: '修改账单'
+    titles:
+      edit: "编辑账单"
+      save: "保存账单"
+      new: "新建账单"
+      delete: "删除账单"
+      bills: "账单列表"
+      bill: '账单'

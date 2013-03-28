@@ -4,7 +4,6 @@ gem 'rails', '3.2.12'
 
 gem 'sqlite3'
 gem 'jquery-rails'
-#gem 'bootstrap-sass', '2.0.4'
 gem "twitter-bootstrap-rails"
 gem "therubyracer"
 
@@ -18,9 +17,11 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
+  gem 'cucumber-rails', '1.2.1', require: false
   gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', '1.5.0'
   gem 'spork', '0.9.2'
+  gem 'factory_girl_rails', '4.1.0'
 end
 
 group :test do
@@ -28,6 +29,5 @@ group :test do
   gem 'rb-inotify', '~> 0.9'
   gem 'libnotify', '0.5.9'
   gem 'factory_girl_rails', '4.1.0'
-  gem 'cucumber-rails', '1.2.1', require: false
   gem 'database_cleaner', '0.7.0'
 end

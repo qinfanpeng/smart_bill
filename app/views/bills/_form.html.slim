@@ -1,13 +1,15 @@
 = form_for @bill, :html => { :class => "form-horizontal" } do |f|
   .control-group
-    = f.label :description, :class => 'control-label'
+    = f.label t('helpers.description') + ':', :class => 'control-label', for: 'bill_description'
     .controls
-      = f.text_area :description, :class => 'text_area'
+      = f.text_area :description, :class => 'text_area', rows: '6', require: true
   .control-group
-    = f.label :count, :class => 'control-label'
+    = f.label t('helpers.count') + ':', :class => 'control-label', for: 'bill_count'
     .controls
-      = f.number_field :count, :class => 'number_field'
+      = f.number_field :count, :class => 'number_field', require: true
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
-    '
+    -if @bill.new_record?
+      = f.submit t('helpers.buttons.Create Bill'), :class => 'btn btn-primary'
+    -else
+      = f.submit t('helpers.buttons.Update Bill'), :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), bills_path, :class => 'btn'
