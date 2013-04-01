@@ -1,5 +1,5 @@
-source 'http://ruby.taobao.org'
-
+#source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 
 gem 'sqlite3'
@@ -31,4 +31,8 @@ group :test do
   gem 'libnotify', '0.5.9'
   gem 'factory_girl_rails', '4.1.0'
   gem 'database_cleaner', '0.7.0'
+end
+
+group :production do
+  gem 'pg', '0.12.2'
 end
