@@ -2,6 +2,8 @@ class BillsController < ApplicationController
   before_filter :require_sign_in
   before_filter :require_creater, only: [:destroy, :update, :edit]
 
+  include BillsHelper
+
   def index
     @bills = Bill.all
     @users = User.all
@@ -81,7 +83,7 @@ class BillsController < ApplicationController
 
   def require_creater
     @bill = Bill.find(params[:id])
-    unless @bill.user == current_user
+    unless creater? @bill
       flash[:error] = t('controllers.bill.require_creater')
       redirect_to :back
     end

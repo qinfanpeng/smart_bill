@@ -21,12 +21,12 @@ table class="table table-striped"
         td= bill.payer.name unless bill.payer.nil?
         td= t (bill.created_at).strftime('%Y年%m月%d日 %H:%M:%S')
         td
-          = link_to t("helpers.links.edit"), edit_bill_path(bill), :class => 'btn btn-mini'
-          '
-          = link_to t("helpers.links.destroy"), bill_path(bill),
-          :method => :delete,
-          :data => { :confirm => t("helpers.links.confirm") },
-          :class => 'btn btn-mini btn-danger'
+          -if creater? bill
+            = link_to t("helpers.links.edit"), edit_bill_path(bill), :class => 'btn btn-mini'
+            = link_to t("helpers.links.destroy"), bill_path(bill),
+            :method => :delete,
+            :data => { :confirm => t("helpers.links.confirm") },
+            :class => 'btn btn-mini btn-danger'
 
 .alert.alert-info
   .row-fluid.bill_notice

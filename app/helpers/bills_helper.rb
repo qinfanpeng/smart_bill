@@ -7,4 +7,7 @@ module BillsHelper
     Bill.averge
   end
 
+  def creater? bill
+    bill.user == current_user
+  end
 end
