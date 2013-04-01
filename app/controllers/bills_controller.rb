@@ -1,8 +1,10 @@
 class BillsController < ApplicationController
-  # GET /bills
-  # GET /bills.json
+  before_filter :require_sign_in
+  before_filter :require_creater, only: [:destroy, :update, :edit]
+
   def index
     @bills = Bill.all
+    @users = User.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +12,6 @@ class BillsController < ApplicationController
     end
   end
 
-  # GET /bills/1
-  # GET /bills/1.json
   def show
     @bill = Bill.find(params[:id])
 
@@ -21,8 +21,6 @@ class BillsController < ApplicationController
     end
   end
 
-  # GET /bills/new
-  # GET /bills/new.json
   def new
     @bill = Bill.new
 
@@ -32,52 +30,60 @@ class BillsController < ApplicationController
     end
   end
 
-  # GET /bills/1/edit
+
   def edit
     @bill = Bill.find(params[:id])
   end
 
-  # POST /bills
-  # POST /bills.json
   def create
-    @bill = Bill.new(params[:bill])
+    @bill = current_user.bills.build(params[:bill])
 
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+        flash[:success] = t('controllers.bill.flashs.create.success')
+        format.html { redirect_to @bill }
         format.json { render json: @bill, status: :created, location: @bill }
       else
+        flash[:error] = t('controllers.bill.flashs.update.error')
         format.html { render action: "new" }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /bills/1
-  # PUT /bills/1.json
   def update
     @bill = Bill.find(params[:id])
 
     respond_to do |format|
       if @bill.update_attributes(params[:bill])
-        format.html { redirect_to @bill, notice: 'Bill was successfully updated.' }
+        flash[:success] = t('controllers.bill.flashs.update.success')
+        format.html { redirect_to @bill }
         format.json { head :no_content }
       else
+        flash[:error] = t('controllers.bill.flashs.update.error')
         format.html { render action: "edit" }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /bills/1
-  # DELETE /bills/1.json
   def destroy
-    @bill = Bill.find(params[:id])
+    # @bill = Bill.find(params[:id])
     @bill.destroy
-
+    flash[:success] = t('controllers.bill.flashs.destroy.success')
     respond_to do |format|
       format.html { redirect_to bills_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def require_creater
+    @bill = Bill.find(params[:id])
+    unless @bill.user == current_user
+      flash[:error] = t('controllers.bill.require_creater')
+      redirect_to :back
     end
   end
 end

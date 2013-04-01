@@ -41,13 +41,24 @@ div {
 
 .field_with_errors {
   padding: 1px;
-  background-color: red;
-  display: table;
+//  background-color: red;
+  display: inline;
+}
+
+.field_with_errors .message {
+    color: #b94a48;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.field_with_errors .help-inline {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 #error_explanation {
   width: 450px;
-  border: 2px solid red;
+//  border: 2px solid red;
   padding: 7px;
   padding-bottom: 0;
   margin-bottom: 20px;
@@ -62,8 +73,12 @@ div {
     background-color: #c00;
     color: #fff;
   }
+  ul {
+      margin-top: -12px;
+  }
   ul li {
     font-size: 12px;
-    list-style: square;
+    color: red;
+    list-style: circle;
   }
 }

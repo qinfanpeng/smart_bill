@@ -6,6 +6,7 @@ gem 'sqlite3'
 gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem "therubyracer"
+gem 'client_side_validations'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

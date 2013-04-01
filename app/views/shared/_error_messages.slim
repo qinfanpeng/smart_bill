@@ -1,0 +1,8 @@
+-if object.errors.any?
+  #error_explanation
+    .alert.alert-error
+      = "表单中有#{object.errors.count}个错误"
+    ul
+      -object.errors.full_messages.each do |msg|
+        li
+          = msg

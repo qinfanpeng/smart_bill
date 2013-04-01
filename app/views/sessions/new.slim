@@ -1,0 +1,14 @@
+div class="page-header"
+  h1 = t '.title'
+  /h2 = current_user.name
+= form_for @user, url: sessions_path, validate: true, html: { class: "form-horizontal" } do |f|
+  .control-group
+    = f.label t('.name')+':', class: 'control-label', for: 'user_name'
+    .controls
+      = f.text_field :name, class: 'text-field', data: {info: '请输入你的用户名'}
+  .control-group
+    = f.label t('.password')+':', class: 'control-label', for: 'user_password'
+    .controls
+      = f.password_field :password, class: 'password-field', data: {info: '请输入你的登录密码'}
+  .form-actions
+    = f.submit t('.login'), class: 'btn btn-primary'

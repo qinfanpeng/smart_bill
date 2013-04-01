@@ -1,24 +1,52 @@
 - model_class = Bill
 div class="page-header"
-  h1=t '.title', :default => [:'helpers.titles.bills', model_class.model_name.human.pluralize]
+  h1=t 'helpers.titles.bills'
 table class="table table-striped"
   thead
     tr
       th= t 'helpers.id'
       th= t 'helpers.description'
+      th= t '.creater'
       th= t 'helpers.count'
+      th= t '.payer'
       th= t 'helpers.created at'
       th= t "helpers.actions"
   tbody
     - @bills.each do |bill|
       tr
         td= link_to bill.id, bill_path(bill)
-        td= link_to bill.description, bill
+        td= link_to (truncate bill.description, lenth: 10), bill
+        td= bill.user.name unless bill.user.nil?
         td= number_to_currency(bill.count, unit: '&yen')
+        td= bill.payer.name unless bill.payer.nil?
         td= t (bill.created_at).strftime('%Y年%m月%d日 %H:%M:%S')
         td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_bill_path(bill), :class => 'btn btn-mini'
+          = link_to t("helpers.links.edit"), edit_bill_path(bill), :class => 'btn btn-mini'
           '
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), bill_path(bill), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+          = link_to t("helpers.links.destroy"), bill_path(bill),
+          :method => :delete,
+          :data => { :confirm => t("helpers.links.confirm") },
+          :class => 'btn btn-mini btn-danger'
 
-= link_to t('.new', :default => t("helpers.links.new")), new_bill_path, :class => 'btn btn-primary'
+.alert.alert-info
+  .row-fluid.bill_notice
+    .span2
+      strong= t('.total')+': '
+      = number_to_currency(total, unit: '&yen')
+    .span2
+      strong= t('.averge')+': '
+      = number_to_currency(averge, unit: '&yen')
+    .span8
+      strong= t('.figure')+':'
+      -@users.each do |user|
+        span.figure
+          span.name
+           =user.name+':'
+          -if user.figure < 0
+            span.label.label-warning
+              = number_to_currency(user.figure, unit: '&yen')
+          -else
+            span.label.label-success
+              '+
+              = number_to_currency(user.figure, unit: '&yen')
+= link_to t("helpers.links.new"), new_bill_path, :class => 'btn btn-primary'

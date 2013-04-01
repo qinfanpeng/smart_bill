@@ -13,7 +13,7 @@ zh_CN:
       cancel: "取消"
       confirm: "你确定要删除吗?"
       destroy: "删除"
-      new: "新建"
+      new: "新建账单"
       edit: '编辑'
     buttons:
       Create Bill: '创建账单'
@@ -25,3 +25,76 @@ zh_CN:
       delete: "删除账单"
       bills: "账单列表"
       bill: '账单'
+
+# activerecord -> model
+
+  activerecord:
+    models:
+      bill: '账单'
+    attributes:
+      bill:
+        count: '金额'
+        description: '明细'
+        payer_id: '支付者'
+    errors:
+      models:
+        bill:
+          attributes:
+            count:
+              blank: '不能为空'
+              not_a_number: '必须是数字'
+            description:
+              blank: '不能为空'
+            payer_id:
+              blank: '不能为空'
+
+# controller -> flash
+
+  controllers:
+    require_sign_in: '请先登录'
+    bill:
+      require_creater: '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
+      flashs:
+        update:
+          success: '账单修改成功'
+          error: '账单修改失败'
+        destroy:
+          success: '账单删除成功'
+        create:
+          success: '账单创建成功'
+          error: '账单创建失败'
+    session:
+      flashs:
+        create:
+          success: '登录成功， 欢迎您'
+          error: '登录失败，用户名或密码错误！'
+        destroy:
+          success: '您已经安全退出'
+
+
+# views
+
+  sessions:
+    new:
+      name: '用户名'
+      password: '密码'
+      login: '登录'
+      title: '登录'
+
+  layouts:
+    application:
+      account: '账户'
+      signin: '登录'
+      signout: '退出'
+
+  bills:
+    index:
+      creater: '创建者'
+      payer: '支付者'
+      total: '共计'
+      averge: '人均'
+      figure: '结算'
+    form:
+      payer: '支付者'
+    show:
+      payer: '支付者'

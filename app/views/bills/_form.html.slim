@@ -1,15 +1,21 @@
-= form_for @bill, :html => { :class => "form-horizontal" } do |f|
+= form_for @bill, :validate => true, :html => { :class => "form-horizontal" } do |f|
+  = render 'shared/error_messages', object: f.object
   .control-group
     = f.label t('helpers.description') + ':', :class => 'control-label', for: 'bill_description'
     .controls
-      = f.text_area :description, :class => 'text_area', rows: '6', require: true
+      = f.text_area :description, :class => 'text_area', rows: '6', data: {info: '请输入你账单中的物品'}
   .control-group
     = f.label t('helpers.count') + ':', :class => 'control-label', for: 'bill_count'
     .controls
-      = f.number_field :count, :class => 'number_field', require: true
+      = f.text_field :count, :class => 'number_field', data: {info: '请输入金额'}
+  .control-group
+    = f.label t('.payer') + ':', :class => 'control-label', for: 'bill_payer_id'
+    .controls
+      / 下面代码中的第一个{}不能省去，因为 select方法接受两个哈希，分别存放自己的option和html的option
+      = collection_select(:bill, :payer_id, User.all, :id, :name,{selected: current_user.id}, {data:{info: '请选择支付人'}})
   .form-actions
     -if @bill.new_record?
       = f.submit t('helpers.buttons.Create Bill'), :class => 'btn btn-primary'
     -else
       = f.submit t('helpers.buttons.Update Bill'), :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), bills_path, :class => 'btn'
+    = link_to t("helpers.links.cancel"), bills_path, :class => 'btn'

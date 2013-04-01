@@ -31,25 +31,40 @@ html lang="en"
               li= link_to "Link 1", "/path1"
               li= link_to "Link 2", "/path2"
               li= link_to "Link 3", "/path3"
+            ul.nav.pull-right
+              -unless current_user.nil?
+                li
+                  = link_to '欢迎您，'+current_user.name, '#'
+              li.divider-vertical
+              li.dropdown
+                a data-toggle='dropdown' class='dropdown-toggle'
+                  = t '.account'
+                  b.caret
+                ul.dropdown-menu
+                  /li = link_to t('.profile'), current_user
+                  - if signed_in?
+                    li = link_to t('.signout'), signout_path
+                  -else
+                    li = link_to t('.signin'), signin_path
 
-    .container-fluid
+  .container-fluid
 
-      .row-fluid
-        .span3
-          .well.sidebar-nav
-            ul.nav.nav-list
-              li.nav-header Sidebar
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
-        .span9
-          = bootstrap_flash
-          = yield
+    .row-fluid
+      .span3
+        .well.sidebar-nav
+          ul.nav.nav-list
+            li.nav-header Sidebar
+            li= link_to "Link 1", "/path1"
+            li= link_to "Link 2", "/path2"
+            li= link_to "Link 3", "/path3"
+      .span9
+        = bootstrap_flash
+        = yield
 
-      footer
-        p &copy; Company 2013
-    /!
-      Javascripts
-      \==================================================
-    /! Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
+    footer
+      p &copy; json 2013
+  /!
+    Javascripts
+    \==================================================
+  /! Placed at the end of the document so the pages load faster
+  = javascript_include_tag "application"
