@@ -10,5 +10,11 @@ div class="page-header"
     = f.label t('.password')+':', class: 'control-label', for: 'user_password'
     .controls
       = f.password_field :password, class: 'password-field', data: {info: '请输入你的登录密码'}
+  .control-group
+    label.control-label#user_remember_me
+    .controls
+      label.checkbox
+        = check_box_tag :remember_me, 'true'
+        = t('.remember_me')
   .form-actions
     = f.submit t('.login'), class: 'btn btn-primary'

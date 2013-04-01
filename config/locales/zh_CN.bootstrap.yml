@@ -80,6 +80,7 @@ zh_CN:
       password: '密码'
       login: '登录'
       title: '登录'
+      remember_me: '记住我'
 
   layouts:
     application:

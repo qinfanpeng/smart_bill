@@ -1,13 +1,13 @@
 class SessionsController < ApplicationController
-
   def new
     @user = User.new
   end
 
   def create
     user = User.authenticate(params[:user])
+    remember_me = !params[:remember_me].nil?
     if user
-      signin user
+      signin(user, remember_me)
       flash[:success] = t('controllers.session.flashs.create.success')
       redirect_to root_url
     else
