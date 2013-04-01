@@ -1,8 +1,8 @@
-#source 'http://ruby.taobao.org'
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
+#source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 
-gem 'sqlite3'
+
 gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem "therubyracer"
@@ -17,6 +17,7 @@ end
 
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '2.11.0'
   gem 'cucumber-rails', '1.2.1', require: false
   gem 'guard-rspec', '1.2.1'
@@ -34,5 +35,5 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '0.12.2'
+  gem 'pg'
 end
