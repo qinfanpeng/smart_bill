@@ -2,8 +2,7 @@
 module SessionsHelper
   def signin(user, remember_me)
     if remember_me
-      session[:user_id] = user.id
-      #cookies.permanent[:user_id] = user.id
+      cookies.permanent[:user_id] = user.id
     else
       session[:user_id] = user.id
     end
@@ -11,8 +10,8 @@ module SessionsHelper
   end
 
   def current_user
-    #_user_id = cookies[:user_id] || session[:user_id]
-    @current_user ||= User.find_by_id(session[:user_id])
+    _user_id = session[:user_id] || cookies[:user_id] # 注意把session[:user_id]写在前面, 否则不 ‘记住我’ 就登录不进，目前不知何因
+    @current_user ||= User.find_by_id(_user_id)
   end
 
   def current_user=(user)
@@ -20,7 +19,7 @@ module SessionsHelper
   end
 
   def signout
-    #cookies[:user_id] = nil
+    cookies[:user_id] = nil
     session[:user_id] = nil
     @current_user = nil
   end
