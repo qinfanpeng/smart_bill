@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "Authentications" do
   let(:user) { FactoryGirl.create(:user) }
-  let(:another_user) { FactoryGirl.create(:user, name: 'test', password: 'test') }
+  let(:another_user) { FactoryGirl.create(:user, name: 'test', password: 'testtest') }
   let(:a_bill_of_another_user) { another_user.bills.create(description: 'test', count: 1, payer_id: another_user.id) }
   let(:bill) { FactoryGirl.create(:bill) }
 

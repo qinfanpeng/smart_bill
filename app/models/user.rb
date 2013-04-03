@@ -1,16 +1,15 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :password
+  attr_accessible :name, :password, :password_confirmation
+
+  validates :name, presence: true
+  validates :password, presence: true, length: {minimum: 6}
+  validates_confirmation_of :password
+
+
   has_many :bills, dependent: :destroy
   has_many :paid_bills, dependent: :destroy, class_name: 'Bill', foreign_key: 'payer_id'
 
-  def self.authenticate(user)
-    _user = find_by_name(user[:name])
-    if _user && _user.password == user[:password]
-      _user
-    else
-      nil
-    end
-  end
+  has_secure_password
 
   def paid
     self.paid_bills.inject(0) {|paid, paid_bill| paid + paid_bill.count }

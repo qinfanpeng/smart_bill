@@ -4,9 +4,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:user])
+    user = User.find_by_name(params[:user][:password])
     remember_me = !params[:remember_me].nil?
-    if user
+    if user && user.authenticate(params[:user][:password])
       signin(user, remember_me)
       flash[:success] = t('controllers.session.flashs.create.success')
       redirect_to root_url

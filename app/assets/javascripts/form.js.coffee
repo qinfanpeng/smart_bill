@@ -1,3 +1,4 @@
+
 jQuery ->
 
   _data_validate = $('form *[data-validate=true]')
@@ -19,6 +20,7 @@ jQuery ->
       _this.blur(_blur)
 
 
+
   _data_validate.focus_blur(->
     hide_notice(@_control_group, 'error', 'label.message')
     hide_notice(@_control_group, 'success', 'span.help-inline.success')
@@ -30,7 +32,27 @@ jQuery ->
       show_notice(@_control_group, @_controls, 'error', null, 'label.message')
     else
       show_notice(@_control_group, @_controls, 'success', @_help_inline_success, 'span.help-inline.success')
-  )
+    )
+
+  #----------------------- client side validation 对password_confirmation 验证没效，下面对它做专门验证
+  $('input[name*=password_confirmation]').focus_blur ->
+    hide_notice($(this).parents('.control-group'), 'success', 'span.help-inline.success')
+    hide_notice(@_control_group, 'error', 'label.error_message')
+    show_notice(@_control_group, @_controls, 'info', @_help_inline_info, 'span.help-inline.info')
+  ,
+  ->
+    hide_notice(@_control_group, 'info', 'span.help-inline.info')
+    _self = $(this)
+    _password = _self.parent().parent().parent().find('.password-field').first()
+    _error_label = $("<label class='error_message'> test </label>")
+    if _self.val() == ''
+      show_notice(@_control_group, @_controls, 'error',
+      $("<label class='error_message'>不能为空</label>"), 'label.message')
+    else if _self.val() != _password.val()
+      show_notice(@_control_group, @_controls, 'error',
+      $("<label class='error_message'>两次输入不匹配</label>"), 'label.message')
+    else
+      show_notice(@_control_group, @_controls, 'success', @_help_inline_success, 'span.help-inline.success')
 
   show_notice = (_control_group, _controls, to_add, to_append, to_show)->
     _control_group.addClass(to_add)

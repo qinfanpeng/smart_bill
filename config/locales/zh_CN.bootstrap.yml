@@ -36,6 +36,10 @@ zh_CN:
         count: '金额'
         description: '明细'
         payer_id: '支付者'
+      user:
+        name: '用户名'
+        password: '密码'
+        password_confirmation: '确认密码'
     errors:
       models:
         bill:
@@ -47,6 +51,17 @@ zh_CN:
               blank: '不能为空'
             payer_id:
               blank: '不能为空'
+        user:
+          attributes:
+            name:
+              blank: '不能为空'
+            password:
+              blank: '不能为空'
+              too_short: '太短'
+              confirmation: '两次输入不匹配'
+            password_confirmation:
+              blank: '不能为空'
+
 
 # controller -> flash
 
@@ -71,6 +86,16 @@ zh_CN:
         destroy:
           success: '您已经安全退出'
 
+    user:
+      flashs:
+        create:
+          success: '增加用户成功'
+          error: '增加用户失败'
+        update:
+          success: '用户修改成功'
+          error: '用户修改失败'
+        destroy:
+          success: '删除成功'
 
 # views
 
@@ -99,3 +124,17 @@ zh_CN:
       payer: '支付者'
     show:
       payer: '支付者'
+
+  users:
+    form:
+      name: '用户名'
+      password: '密码'
+      confirmation: '确认密码'
+      create: '增加'
+      update: '修改'
+    new:
+      title: '增加用户'
+    edit:
+      title: '修改用户'
+    show:
+      title: '用户'

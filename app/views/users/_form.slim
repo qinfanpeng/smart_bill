@@ -1,0 +1,22 @@
+= form_for @user, validate: true, html: { class: "form-horizontal" } do |f|
+  .control-group
+    = f.label t('.name')+':', class: 'control-label', for: 'user_name'
+    .controls
+      = f.text_field :name, class: 'text-field', data: {info: '请输入用户名'}
+  .control-group
+    = f.label t('.password')+':', class: 'control-label', for: 'user_password'
+    .controls
+      = f.password_field :password, class: 'password-field',
+      data: {info: '请输入登录密码'}, validate: {confirmation: false}
+  .control-group
+    = f.label t('.confirmation')+':', class: 'control-label', for: 'user_password_confirmation'
+    .controls
+      = f.password_field :password_confirmation, class: 'password-field',
+      data: {info: '请确认登录密码'}
+
+  .form-actions
+    -if @user.new_record?
+      = f.submit t('.create'), class: 'btn btn-primary'
+    -else
+      = f.submit t('.update'), class: 'btn btn-primary'
+    = link_to t("helpers.links.cancel"), users_path, :class => 'btn'
