@@ -67,6 +67,8 @@ zh_CN:
 
   controllers:
     require_sign_in: '请先登录'
+    require_admin: '对不起, 只有管理员才能进行此操作!'
+    not_the_admin: '您不能删除您自己'
     bill:
       require_creater: '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
       flashs:
@@ -112,6 +114,13 @@ zh_CN:
       account: '账户'
       signin: '登录'
       signout: '退出'
+      manage_users: '用户管理'
+      new_user: '增加用户'
+      manage_bills: '账单管理'
+      change_password: '改密码'
+      all_bills: '所有账单'
+      my_bills: '我的账单'
+      new_bill: '新建账单'
 
   bills:
     index:
@@ -136,5 +145,10 @@ zh_CN:
       title: '增加用户'
     edit:
       title: '修改用户'
+      change_password: '修改密码'
     show:
       title: '用户'
+    index:
+      title: '用户列表'
+      id: '序号'
+      name: '用户名'

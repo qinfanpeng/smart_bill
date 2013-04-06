@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :password, :password_confirmation
+  attr_accessible :name, :password, :password_confirmation, :admin
 
   validates :name, presence: true
   validates :password, presence: true, length: {minimum: 6}
   validates_confirmation_of :password
-
 
   has_many :bills, dependent: :destroy
   has_many :paid_bills, dependent: :destroy, class_name: 'Bill', foreign_key: 'payer_id'

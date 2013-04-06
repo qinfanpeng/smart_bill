@@ -1,5 +1,4 @@
 class BillsController < ApplicationController
-  before_filter :require_sign_in
   before_filter :require_creater, only: [:destroy, :update, :edit]
 
   include BillsHelper

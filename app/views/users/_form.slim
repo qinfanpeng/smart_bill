@@ -2,7 +2,10 @@
   .control-group
     = f.label t('.name')+':', class: 'control-label', for: 'user_name'
     .controls
-      = f.text_field :name, class: 'text-field', data: {info: '请输入用户名'}
+      - if @user.admin?
+        = f.text_field :name, class: 'text-field', data: {info: '请输入用户名'}
+      -else
+        = f.text_field :name, class: 'text-field', data: {info: '您不能修改自己的用户名'}, readonly: true
   .control-group
     = f.label t('.password')+':', class: 'control-label', for: 'user_password'
     .controls
