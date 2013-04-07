@@ -7,6 +7,8 @@ module SessionsHelper
       session[:user_id] = user.id
     end
     self.current_user = user
+    bills = current_user.bills + Bill.where(payer_id: current_user.id)
+    cookies.permanent[:about_me_count] = bills.size
   end
 
   def current_user

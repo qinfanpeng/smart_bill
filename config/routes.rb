@@ -6,7 +6,7 @@ SmartBill::Application.routes.draw do
 
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
-  match '/create_session', to: 'sessions#create'
-
+  match 'my_bills', to: 'bills#my_bills'
+  match '/about_me', to: 'bills#about_me'
 
 end

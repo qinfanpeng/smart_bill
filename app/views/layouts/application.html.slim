@@ -35,14 +35,18 @@ html lang="en"
                   li= link_to t(".manage_bills"), bills_path
                 -else
                   li= link_to t(".all_bills"), bills_path
-                  li= link_to t(".my_bills"), '#'
-                  li= link_to t(".new_bill"), new_bill_path
+                li= link_to t(".my_bills"), my_bills_path
+                li= link_to t(".new_bill"), new_bill_path
 
             ul.nav.pull-right
               -if current_user.nil?
                 li
                   = link_to t('.signin'), signin_path
               -else
+                li
+                  a href='/about_me' title='与我相关'
+                    span.badge.badge-success
+                      = about_me_count
                 li.dropdown
                   a data-toggle='dropdown' class='dropdown-toggle'
                     = current_user.name

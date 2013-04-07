@@ -115,7 +115,7 @@ zh_CN:
       signin: '登录'
       signout: '退出'
       manage_users: '用户管理'
-      new_user: '增加用户'
+      new_user: '添加用户'
       manage_bills: '账单管理'
       change_password: '改密码'
       all_bills: '所有账单'

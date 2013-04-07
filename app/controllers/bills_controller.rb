@@ -1,5 +1,6 @@
 class BillsController < ApplicationController
   before_filter :require_creater, only: [:destroy, :update, :edit]
+  after_filter :count_about_me, only: [:create, :update, :destroy]
 
   include BillsHelper
 
@@ -78,6 +79,18 @@ class BillsController < ApplicationController
     end
   end
 
+  def my_bills
+    @bills = current_user.bills
+    @users = User.all
+    render :index
+  end
+
+  def about_me
+    @bills = current_user.bills + Bill.where(payer_id: current_user.id)
+    @users = User.all
+    render :index
+  end
+
   private
 
   def require_creater
@@ -86,5 +99,10 @@ class BillsController < ApplicationController
       flash[:error] = t('controllers.bill.require_creater')
       redirect_to bills_url
     end
+  end
+
+  def count_about_me
+    @bills = current_user.bills + Bill.where(payer_id: current_user.id)
+    cookies[:about_me_count] = @bills.size
   end
 end

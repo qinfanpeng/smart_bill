@@ -10,4 +10,8 @@ module BillsHelper
   def creater? bill
     bill.user == current_user
   end
+
+  def about_me_count
+    cookies[:about_me_count]
+  end
 end
