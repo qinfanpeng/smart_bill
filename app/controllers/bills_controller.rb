@@ -86,7 +86,7 @@ class BillsController < ApplicationController
   end
 
   def about_me
-    @bills = current_user.bills + Bill.where(payer_id: current_user.id)
+    @bills = current_user.bills + Bill.where('payer_id=? AND user_id <> ?', current_user.id, current_user.id)
     @users = User.all
     render :index
   end
@@ -102,7 +102,7 @@ class BillsController < ApplicationController
   end
 
   def count_about_me
-    @bills = current_user.bills + Bill.where(payer_id: current_user.id)
-    cookies[:about_me_count] = @bills.size
+    about_me_bills = current_user.bills + Bill.where('payer_id=? AND user_id <> ?', current_user.id, current_user.id)
+    cookies[:about_me_count] = about_me_bills.size
   end
 end
