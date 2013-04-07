@@ -91,11 +91,11 @@ zh_CN:
     user:
       flashs:
         create:
-          success: '增加用户成功'
-          error: '增加用户失败'
+          success: '添加用户成功'
+          error: '添加用户失败'
         update:
-          success: '用户修改成功'
-          error: '用户修改失败'
+          success: '修改用户成功'
+          error: '修改用户失败'
         destroy:
           success: '删除成功'
 
@@ -139,10 +139,10 @@ zh_CN:
       name: '用户名'
       password: '密码'
       confirmation: '确认密码'
-      create: '增加'
+      create: '添加'
       update: '修改'
     new:
-      title: '增加用户'
+      title: '添加用户'
     edit:
       title: '修改用户'
       change_password: '修改密码'

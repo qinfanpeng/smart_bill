@@ -84,7 +84,7 @@ class BillsController < ApplicationController
     @bill = Bill.find(params[:id])
     unless creater? @bill
       flash[:error] = t('controllers.bill.require_creater')
-      redirect_to :back
+      redirect_to bills_url
     end
   end
 end

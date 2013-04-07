@@ -10,12 +10,7 @@ describe "Bill Actions" do
   subject { page }
 
   describe "As a signed user" do
-    before do
-      visit signin_path
-      fill_in '用户名',  with: @user.name
-      fill_in '密码',   with: @user.password
-      click_button '登录'
-    end
+    before { signin @user }
 
     describe "create bill" do
       before { visit new_bill_path }
@@ -31,11 +26,11 @@ describe "Bill Actions" do
         end
         it "And the new bill's creater should be current user" do
           click_button '创建账单'
-          Bill.last.user.name == @user.name
+          Bill.last.user.name.should == @user.name
         end
         it "And the new bill's payer should be I selected user" do
           click_button '创建账单'
-          Bill.last.payer.name == @user.name
+          Bill.last.payer.name.should == @user.name
         end
       end
 
@@ -55,11 +50,9 @@ describe "Bill Actions" do
         before do
           fill_in '明细', with: 'updated description'
           click_button '修改账单'
-          #put bill_path(@bill)
         end
 
         it "Then I should been taken to the show bill page" do
-          #response.should redirect_to @bill
           page.should have_selector('h1', text: '账单')
         end
         it "And I should see 'updated description'" do
@@ -67,8 +60,6 @@ describe "Bill Actions" do
         end
         it "And I should see a notice 'bill was successfully updated'" do
           page.should have_selector('div.alert-success', text: '账单修改成功')
-          #flash[:success].should == '账单修改成功'
-
         end
       end
 
@@ -85,17 +76,14 @@ describe "Bill Actions" do
     end
 
     describe "delete bill" do
-
+      before { visit bill_path(a_bill_of_the_user) }
       context "When I delete a bill" do
         it "Then I should deleted the bill" do
-          #expect { delete bill_path(@bill) }.to change(Bill, :count).by(-1)
-          delete bill_path(a_bill_of_the_user)
-          flash[:success] == '删除账单成功'
+          expect { click_link '删除' }.to change(Bill, :count).by(-1)
         end
 
         it "And I should been take to the bills index page" do
-          delete bill_path(a_bill_of_the_user)
-          #response.should redirect_to(bills_url)
+          click_link '删除'
           page.should have_selector('h1', text: '账单列表')
         end
       end
@@ -104,12 +92,10 @@ describe "Bill Actions" do
     describe "list all bills" do
       context "When I go to the bill index page" do
         before { visit bills_path }
-
         it "Then I should see 'Bills'" do
           page.should have_selector('h1', text: '账单列表')
         end
       end
     end
-
   end
 end

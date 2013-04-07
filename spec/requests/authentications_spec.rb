@@ -10,18 +10,16 @@ describe "Authentications" do
 
   shared_examples_for 'require sign in' do
     it "Then I should be taken to the signin page" do
-      page.should have_selector('h1', text: '登录')
+      response.should redirect_to signin_path
     end
     it "And I should see the please signin notice" do
-      #page.should have_selector('div.alert-success', text: '请先登录')
-      flash[:notice] == '请先登录'
+      flash[:notice].should eq('请先登录')
     end
   end
 
   shared_examples_for 'require admin user' do
     it "Then I should see a notice 'only admin user can do this opration'" do
-      #page.should have_selector('div.alert-success', text: '不起, 只有 admin 才能进行此操作!')
-      flash[:notice] == '不起, 只有管理员才能进行此操作!'
+      flash[:notice].should eq '对不起, 只有管理员才能进行此操作!'
     end
   end
 
@@ -60,29 +58,18 @@ describe "Authentications" do
   end
 
   describe "As a non crrect user" do
-    before do
-      visit signin_path
-      fill_in '用户名',  with: user.name
-      fill_in '密码',   with: user.password
-      click_button '登录'
-    end
-    context "When I attempt to delete owther's bill" do
+    before { signin user }
+
+    context "When I attempt to delete other's bill" do
       before { delete bill_path(a_bill_of_another_user) }
       it "Then I should see a error notice" do
-        pending('there is a bug ...')
-        flash[:error] == '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
-        #page.should have_selector('div.alert-error', text: '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者')
+        flash[:error].should eq '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
       end
     end
   end
 
   describe "As a non admin user" do
-    before do
-      visit signin_path
-      fill_in '用户名',  with: user.name
-      fill_in '密码',   with: user.password
-      click_button '登录'
-    end
+    before { signin user }
 
     context "When I attempt to visit user index page" do
       before { get users_path }
@@ -103,29 +90,15 @@ describe "Authentications" do
       before { delete user_path(user) }
       it_behaves_like 'require admin user'
     end
-
-    context "When I attempt to edit a user " do
-      before { get edit_user_path(user) }
-      it_behaves_like 'require admin user'
-    end
-
-    context "When I attempt to update a user" do
-      before { put user_path(user) }
-      it_behaves_like 'require admin user'
-    end
   end
 
   describe "As an admin" do
-    before do
-      visit signin_path
-      fill_in '用户名',  with: admin.name
-      fill_in '密码',   with: admin.password
-      click_button '登录'
-    end
+    before { signin admin }
+
     context "When I attempt to delete myself" do
       before { delete user_path(admin) }
       it "Then I should see a error 'you can't delete yourself'" do
-        flash[:error] == '您不能删除您自己'
+        flash[:error].should eq '您不能删除您自己'
       end
     end
   end

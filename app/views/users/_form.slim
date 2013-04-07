@@ -2,7 +2,7 @@
   .control-group
     = f.label t('.name')+':', class: 'control-label', for: 'user_name'
     .controls
-      - if @user.admin?
+      - if @user.admin? || current_user.admin?
         = f.text_field :name, class: 'text-field', data: {info: '请输入用户名'}
       -else
         = f.text_field :name, class: 'text-field', data: {info: '您不能修改自己的用户名'}, readonly: true

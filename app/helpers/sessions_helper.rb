@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 module SessionsHelper
-  def signin(user, remember_me)
+  def signin(user, remember_me=false)
     if remember_me
       cookies.permanent[:user_id] = user.id
     else

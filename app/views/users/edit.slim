@@ -1,5 +1,5 @@
 div class="page-header"
-  - if @user.admin?
+  - if @user.admin? || current_user.admin?
     h1 = t '.title'
   -else
     h1 = t('.change_password')
