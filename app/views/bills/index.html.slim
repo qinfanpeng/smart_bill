@@ -16,9 +16,13 @@ table class="table table-striped"
       tr
         td= link_to bill.id, bill_path(bill)
         td= link_to (truncate bill.description, lenth: 10), bill
-        td= bill.user.name unless bill.user.nil?
+        - unless bill.user.nil?
+          td.creater
+            = bill.user.name
         td= number_to_currency(bill.count, unit: '&yen')
-        td= bill.payer.name unless bill.payer.nil?
+        - unless bill.payer.nil?
+          td.payer
+            = bill.payer.name
         td= t (bill.created_at).strftime('%Y年%m月%d日 %H:%M:%S')
         td
           -if creater? bill

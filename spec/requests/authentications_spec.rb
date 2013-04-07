@@ -55,6 +55,16 @@ describe "Authentications" do
       before { put bill_path(bill) }
       it_behaves_like 'require sign in'
     end
+
+    context "When I attempt to get my bills" do
+      before { get my_bills_path }
+      it_behaves_like 'require sign in'
+    end
+
+    context "When I attempt to get about_me" do
+      before { get about_me_path }
+      it_behaves_like 'require sign in'
+    end
   end
 
   describe "As a non crrect user" do
@@ -64,6 +74,20 @@ describe "Authentications" do
       before { delete bill_path(a_bill_of_another_user) }
       it "Then I should see a error notice" do
         flash[:error].should eq '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
+      end
+    end
+
+    context "When I attempt to edit other's password"do
+      before { get edit_user_path(another_user) }
+      it "Then I should see a notice 'you can't edit other's password'" do
+        flash[:error].should eq '对不起, 您只能修改您自己的密码'
+      end
+    end
+
+    context "When I attempt to update other's password"do
+      before { put user_path(another_user) }
+      it "Then I should see a notice 'you can't upate other's password'" do
+        flash[:error].should eq '对不起, 您只能修改您自己的密码'
       end
     end
   end

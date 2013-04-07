@@ -69,6 +69,7 @@ zh_CN:
     require_sign_in: '请先登录'
     require_admin: '对不起, 只有管理员才能进行此操作!'
     not_the_admin: '您不能删除您自己'
+    require_self: '对不起, 您只能修改您自己的密码'
     bill:
       require_creater: '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
       flashs:

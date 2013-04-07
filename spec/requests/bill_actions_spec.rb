@@ -97,5 +97,26 @@ describe "Bill Actions" do
         end
       end
     end
+
+    describe "list my bills" do
+      before do
+        bill1 = @user.bills.create(description: 'bill1', count: 1, payer_id: @user.id)
+        bill2 = @user.bills.create(description: 'bill2', count: 2, payer_id: @user.id)
+      end
+      context "When I click the link 'my bills'" do
+        before { visit my_bills_path }
+        it "Then I should see these bills's creater is me" do
+          page.all('td.creater', text: @user.name).size.should == 2 # 注意学习此行代码的写法
+        end
+      end
+
+      context "When I click about_me" do
+        before { visit about_me_path }
+        it "Then I should see these bills's creater or payer must be me" do
+          page.all('td', text: @user.name).size.should == 4 # 此处准备的测试数据中的creater和payer都是当前用户@user,故应是 4
+        end
+      end
+    end
+
   end
 end
