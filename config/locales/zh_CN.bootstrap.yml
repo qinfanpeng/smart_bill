@@ -36,6 +36,8 @@ zh_CN:
         count: '金额'
         description: '明细'
         payer_id: '支付者'
+        good_informations: '商品'
+
       user:
         name: '用户名'
         password: '密码'
@@ -50,6 +52,8 @@ zh_CN:
             description:
               blank: '不能为空'
             payer_id:
+              blank: '不能为空'
+            good_informations:
               blank: '不能为空'
         user:
           attributes:
@@ -130,10 +134,16 @@ zh_CN:
       total: '共计'
       averge: '人均'
       figure: '结算'
+      goods: '商品'
     form:
       payer: '支付者'
+      goods: '商品'
+      count: '小计'
+      list_way: '商品录入方式'
     show:
       payer: '支付者'
+      goods: '商品'
+      count: '小计'
 
   users:
     form:

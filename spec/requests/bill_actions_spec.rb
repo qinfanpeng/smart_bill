@@ -2,11 +2,12 @@
 require 'spec_helper'
 
 describe "Bill Actions" do
+
   before do
-    @bill = FactoryGirl.create(:bill)
     @user = FactoryGirl.create(:user)
   end
-  let(:a_bill_of_the_user) { @user.bills.create(description: 'test', count: 1, payer_id: @user.id)}
+  let(:a_bill_of_the_user) { @user.bills.create!(count: 1, payer_id: @user.id)}
+
   subject { page }
 
   describe "As a signed user" do
@@ -17,10 +18,11 @@ describe "Bill Actions" do
 
       context "When I input valid information" do
         before do
-          fill_in '明细',  with: 'test description'
-          fill_in '金额',  with: 10
+          fill_in 'bill_goods_token_input',  with: 'test description'
+          fill_in '小计',  with: 10
           select @user.name, from: '支付者'
         end
+
         it "Then I should create a bill" do
           expect { click_button '创建账单' }.to change(Bill, :count).by(1)
         end
@@ -35,7 +37,7 @@ describe "Bill Actions" do
       end
 
       context "When I input invalid information" do
-        before { fill_in '明细', with: 'test description' }
+        before { fill_in 'bill_goods_token_input', with: 'test description' }
 
         it "Then I should not create a bill" do
           expect { click_button '创建账单' }.not_to change(Bill, :count).by(1)
@@ -45,10 +47,9 @@ describe "Bill Actions" do
 
     describe "update bill" do
       before { visit edit_bill_path(a_bill_of_the_user) }
-
       context "When I update a bill with valid information" do
         before do
-          fill_in '明细', with: 'updated description'
+          fill_in '小计',  with: 11
           click_button '修改账单'
         end
 
@@ -56,7 +57,7 @@ describe "Bill Actions" do
           page.should have_selector('h1', text: '账单')
         end
         it "And I should see 'updated description'" do
-          page.should have_content 'updated description'
+          page.should have_content '11'
         end
         it "And I should see a notice 'bill was successfully updated'" do
           page.should have_selector('div.alert-success', text: '账单修改成功')
@@ -65,12 +66,12 @@ describe "Bill Actions" do
 
       context "When I update a bill with invalid information" do
         before do
-          fill_in '明细', with: ''
+          fill_in '小计', with: ''
           click_button '修改账单'
         end
 
         it "Then I should see a error " do
-          page.should have_selector('div.field_with_errors textarea#bill_description')
+          page.should have_selector('div.field_with_errors')
         end
       end
     end
@@ -99,9 +100,9 @@ describe "Bill Actions" do
     end
 
     describe "list my bills" do
-      before do
-        bill1 = @user.bills.create(description: 'bill1', count: 1, payer_id: @user.id)
-        bill2 = @user.bills.create(description: 'bill2', count: 2, payer_id: @user.id)
+      before  do
+        bill1 = @user.bills.create!(count: 1, payer_id: @user.id)
+        bill2 = @user.bills.create!(count: 2, payer_id: @user.id)
       end
       context "When I click the link 'my bills'" do
         before { visit my_bills_path }

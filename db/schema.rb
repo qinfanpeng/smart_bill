@@ -11,15 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406030204) do
+ActiveRecord::Schema.define(:version => 20130416061447) do
 
   create_table "bills", :force => true do |t|
-    t.text     "description"
     t.decimal  "count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
     t.integer  "payer_id"
+  end
+
+  create_table "good_informations", :force => true do |t|
+    t.string   "amount"
+    t.decimal  "price"
+    t.integer  "good_name_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "bill_id"
+  end
+
+  create_table "good_names", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

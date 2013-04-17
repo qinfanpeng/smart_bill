@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @good_name.name
+
+= link_to 'Edit', edit_good_name_path(@good_name)
+'|
+= link_to 'Back', good_names_path

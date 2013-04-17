@@ -1,0 +1,19 @@
+h1 Listing good_names
+
+table
+  tr
+    th Name
+    th
+    th
+    th
+
+  - @good_names.each do |good_name|
+    tr
+      td = good_name.name
+      td = link_to 'Show', good_name
+      td = link_to 'Edit', edit_good_name_path(good_name)
+      td = link_to 'Destroy', good_name, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Good name', new_good_name_path

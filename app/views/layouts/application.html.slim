@@ -32,7 +32,7 @@ html lang="en"
                 - if current_user.admin?
                   li= link_to t(".manage_users"), users_path
                   li= link_to t(".new_user"), new_user_path
-                  li= link_to t(".manage_bills"), bills_path
+                  li= link_to t(".all_bills"), bills_path
                 -else
                   li= link_to t(".all_bills"), bills_path
                 li= link_to t(".my_bills"), my_bills_path

@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require rails.validations
 //= require twitter/bootstrap
+//= require jquery.tokeninput
 //= require_tree .

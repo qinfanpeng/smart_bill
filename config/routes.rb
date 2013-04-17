@@ -1,4 +1,6 @@
 SmartBill::Application.routes.draw do
+    resources :goods
+
   root to: "bills#index"
   resources :bills
   resources :sessions, only: [:new, :create, :destroy]
@@ -8,5 +10,6 @@ SmartBill::Application.routes.draw do
   match '/signout', to: 'sessions#destroy'
   match 'my_bills', to: 'bills#my_bills'
   match '/about_me', to: 'bills#about_me'
+  match '/good_names', to: 'good_names#names'
 
 end

@@ -1,0 +1,2 @@
+module GoodNamesHelper
+end

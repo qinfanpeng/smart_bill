@@ -3,11 +3,23 @@ div class="page-header"
   h1=t 'helpers.titles.bill'
 
 p
-  strong= t('helpers.description') + ':'
-  br
-  = @bill.description
+  strong= t('.goods') + ':'
+
+  table.table-condensed
+    - i= 0
+    -@bill.good_informations.each do |gf|
+      - i += 1
+      tr
+        td= i.to_s + '.'
+        td= gf.good_name
+        -if gf.price && gf.amount
+          td= gf.price
+          td x
+          td= gf.amount
+
+
 p
-  strong= t('helpers.count') + ':'
+  strong= t('.count') + ':'
   br
   = @bill.count
 

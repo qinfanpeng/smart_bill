@@ -8,10 +8,14 @@ module BillsHelper
   end
 
   def creater? bill
-    bill.user == current_user
+    bill.user.id == current_user.id
   end
 
   def about_me_count
     cookies[:about_me_count]
+  end
+
+  def goods_names bill
+    bill.good_informations.map{|gf| gf.good_name}.join ','
   end
 end

@@ -5,8 +5,8 @@ describe "Authentications" do
   let(:user) { FactoryGirl.create(:user) }
   let(:admin) { FactoryGirl.create(:user, admin: true) }
   let(:another_user) { FactoryGirl.create(:user, name: 'test', password: 'testtest') }
-  let(:a_bill_of_another_user) { another_user.bills.create(description: 'test', count: 1, payer_id: another_user.id) }
-  let(:bill) { FactoryGirl.create(:bill) }
+  let(:a_bill_of_another_user) { create_bill(user: another_user) }
+  let(:bill) { create_bill }
 
   shared_examples_for 'require sign in' do
     it "Then I should be taken to the signin page" do

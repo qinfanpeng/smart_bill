@@ -1,0 +1,22 @@
+.field_with_errors {
+  padding: 1px;
+  display: inline;
+  background-color: white;
+}
+
+.field_with_errors .message {
+    color: #b94a48;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.field_with_errors .help-inline {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.controls .error_message {
+    display: inline-block;
+    color: #b94a48;
+    margin-left: 10px;
+}

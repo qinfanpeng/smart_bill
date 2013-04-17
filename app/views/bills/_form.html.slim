@@ -1,13 +1,29 @@
 = form_for @bill, :validate => true, :html => { :class => "form-horizontal" } do |f|
   = render 'shared/error_messages', object: f.object
   .control-group
-    = f.label t('helpers.description') + ':', :class => 'control-label', for: 'bill_description'
-    .controls
-      = f.text_area :description, :class => 'text_area', rows: '6', data: {info: '请输入你账单中的物品'}
+    =f.label t('.list_way')+':', class: "control-label"
+    .controls.controls_token
+      label.control-label.list_way
+        = radio_button_tag(:list_way, "brief", checked: true)
+        '简单列举所买商品
+      label.control-label
+        = radio_button_tag(:list_way, 'detail')
+        '详细记录所谓买商品
   .control-group
-    = f.label t('helpers.count') + ':', :class => 'control-label', for: 'bill_count'
+    = f.label t('.goods') + ':', :class => 'control-label', for: 'bill_description'
     .controls
-      = f.text_field :count, :class => 'number_field', data: {info: '请输入金额'}
+      -if @bill.new_record?
+        = text_field_tag :good_name_ids, nil, data: {info: '请输入你账单中的商品'}, id: 'bill_goods_token_input'
+      -else
+        = text_field_tag :good_name_ids, nil, data: {info: '请输入你账单中的商品'},
+        id: 'bill_goods_token_input',
+        data: { prePopulate: @prePopulate}
+        = hidden_field_tag :good_information_ids, @good_information_ids
+
+  .control-group
+    = f.label t('.count') + ':', :class => 'control-label', for: 'bill_count'
+    .controls
+      = f.text_field :count, :class => 'number_field', data: {info: '请输入合计金额'}
   .control-group
     = f.label t('.payer') + ':', :class => 'control-label', for: 'bill_payer_id'
     .controls

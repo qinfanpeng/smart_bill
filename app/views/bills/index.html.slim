@@ -5,7 +5,7 @@ table class="table table-striped"
   thead
     tr
       th= t 'helpers.id'
-      th= t 'helpers.description'
+      th= t '.goods'
       th= t '.creater'
       th= t 'helpers.count'
       th= t '.payer'
@@ -15,7 +15,7 @@ table class="table table-striped"
     - @bills.each do |bill|
       tr
         td= link_to bill.id, bill_path(bill)
-        td= link_to (truncate bill.description, lenth: 10), bill
+        td= link_to (truncate goods_names(bill), length: 20), bill
         - unless bill.user.nil?
           td.creater
             = bill.user.name
