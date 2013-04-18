@@ -7,6 +7,7 @@ describe "Authentications" do
   let(:another_user) { FactoryGirl.create(:user, name: 'test', password: 'testtest') }
   let(:a_bill_of_another_user) { create_bill(user: another_user) }
   let(:bill) { create_bill }
+  let(:good_name) { FactoryGirl.create(:good_name) }
 
   shared_examples_for 'require sign in' do
     it "Then I should be taken to the signin page" do
@@ -114,6 +115,32 @@ describe "Authentications" do
       before { delete user_path(user) }
       it_behaves_like 'require admin user'
     end
+
+    context "When I attempt to new a goods name" do
+      before { get new_good_name_path }
+      it_behaves_like 'require admin user'
+    end
+
+    context "When I attempt to create a new goods name" do
+      before { post good_names_path }
+      it_behaves_like 'require admin user'
+    end
+
+    context "When I attempt to edit a goods name "do
+      before { get edit_good_name_path(good_name) }
+      it_behaves_like 'require admin user'
+    end
+
+    context "When I atttempt to update a goods name" do
+      before { put good_name_path(good_name) }
+      it_behaves_like 'require admin user'
+    end
+
+    context "When I attempt to delete a goods name" do
+      before { delete good_name_path(good_name) }
+      it_behaves_like 'require admin user'
+    end
+
   end
 
   describe "As an admin" do

@@ -5,6 +5,7 @@ SmartBill::Application.routes.draw do
   resources :bills
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
+  resources :good_names
 
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'

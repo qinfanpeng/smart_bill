@@ -1,12 +1,12 @@
-= form_for @good_name do |f|
-  - if @good_name.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@good_name.errors.count, "error")} prohibited this good_name from being saved:"
-      ul
-        - @good_name.errors.full_messages.each do |message|
-          li = message
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions = f.submit 'Save'
+= form_for @good_name, :html => { :class => "form-horizontal" }, validate: true do |f|
+  .control-group
+    = f.label t('.name')+':', :class => 'control-label', for: 'good_name_name'
+    .controls
+      = f.text_field :name, :class => 'text_field', data: {info: '请输入商品名'}
+  .form-actions
+    -if @good_name.new_record?
+      = f.submit t('.create_good_name'), :class => 'btn btn-primary'
+    -else
+      = f.submit t('.update_good_name'), :class => 'btn btn-primary'
+    '
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), good_names_path, :class => 'btn'

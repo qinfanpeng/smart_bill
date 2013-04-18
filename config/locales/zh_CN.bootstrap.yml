@@ -42,6 +42,8 @@ zh_CN:
         name: '用户名'
         password: '密码'
         password_confirmation: '确认密码'
+      good_name:
+        name: '商品名'
     errors:
       models:
         bill:
@@ -64,6 +66,10 @@ zh_CN:
               too_short: '太短'
               confirmation: '两次输入不匹配'
             password_confirmation:
+              blank: '不能为空'
+        good_name:
+          attributes:
+            name:
               blank: '不能为空'
 
 
@@ -101,6 +107,16 @@ zh_CN:
         update:
           success: '修改用户成功'
           error: '修改用户失败'
+        destroy:
+          success: '删除成功'
+    good_name:
+      flashs:
+        create:
+          success: '商品添加成功'
+          error: '商品名不能为空'
+        update:
+          success: '商品修改成功'
+          error: '商品名不能为空'
         destroy:
           success: '删除成功'
 
@@ -163,3 +179,8 @@ zh_CN:
       title: '用户列表'
       id: '序号'
       name: '用户名'
+  good_names:
+    form:
+      create_good_name: '添加商品'
+      update_good_name: '修改商品'
+      name: '商品名'

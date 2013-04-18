@@ -47,12 +47,6 @@ class UsersController < ApplicationController
 
   private
 
-  def require_admin
-    unless current_user.admin?
-      flash[:notice] = t('controllers.require_admin')
-      redirect_to root_url
-    end
-  end
   def not_the_admin
     @user = User.find(params[:id])
     if @user.admin?
