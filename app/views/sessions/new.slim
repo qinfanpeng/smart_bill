@@ -8,7 +8,7 @@ div class="page-header"
   .control-group
     = f.label t('.password')+':', class: 'control-label', for: 'user_password'
     .controls
-      = f.password_field :password, class: 'password-field', data: {info: '请输入你的登录密码'}, validate: false
+      = f.password_field :password, class: 'password-field', data: {info: '请输入你的登录密码'}, validate: {confirmation: false}
   .control-group
     label.control-label#user_remember_me
     .controls

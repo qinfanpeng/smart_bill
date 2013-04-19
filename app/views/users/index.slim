@@ -7,9 +7,11 @@ table.table.table-striped
       th= t '.name'
       th= t 'helpers.actions'
   tbody
+    -i=0
     - @users.each do |user|
+      -i+=1
       tr
-        td= user.id
+        td= i
         td= link_to user.name, user
         td
           = link_to t('helpers.links.edit'), edit_user_path(user), class: 'btn btn-mini'

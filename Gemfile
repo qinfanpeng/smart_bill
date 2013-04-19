@@ -6,7 +6,6 @@ gem 'rails', '3.2.12'
 gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem 'bootstrap-will_paginate', '0.0.6'
-#gem 'will_paginate_twitter_bootstrap'
 gem "therubyracer"
 gem 'client_side_validations'
 gem 'coffee-rails', '~> 3.2.1'

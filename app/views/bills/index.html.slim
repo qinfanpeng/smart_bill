@@ -12,9 +12,11 @@ table class="table table-striped"
       th= t 'helpers.created at'
       th= t "helpers.actions"
   tbody
+    - i = 0
     - @bills.each do |bill|
+      - i += 1
       tr
-        td= link_to bill.id, bill_path(bill)
+        td= i
         td= link_to (truncate goods_names(bill), length: 20), bill
         - unless bill.user.nil?
           td.creater

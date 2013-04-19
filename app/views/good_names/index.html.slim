@@ -4,13 +4,15 @@ div class="page-header"
 table class="table table-striped"
   thead
     tr
-      th= model_class.human_attribute_name(:id)
+      th= t('helpers.id')
       th= model_class.human_attribute_name(:name)
       th=t '.actions', :default => t("helpers.actions")
   tbody
+    - i=0
     - @good_names.each do |good_name|
+      -i += 1
       tr
-        td= link_to good_name.id, good_name_path(good_name)
+        td= i
         td= good_name.name
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_good_name_path(good_name), :class => 'btn btn-mini'
