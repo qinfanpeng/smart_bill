@@ -6,7 +6,8 @@ class GoodNamesController < ApplicationController
   end
 
   def index
-    @good_names = GoodName.all
+     @good_names = GoodName.paginate(page: params[:page], per_page: 10)
+    # @good_names = GoodName.all
   end
 
   def show

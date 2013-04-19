@@ -7,7 +7,7 @@ class BillsController < ApplicationController
   include BillsHelper
 
   def index
-    @bills = Bill.all
+    @bills = Bill.paginate(page: params[:page], per_page: 10)
     @users = User.all
 
     respond_to do |format|
@@ -81,13 +81,13 @@ class BillsController < ApplicationController
   end
 
   def my_bills
-    @bills = current_user.bills
+    @bills = current_user.bills.paginate(page: params[:page], per_page: 10)
     @users = User.all
     render :index
   end
 
   def about_me
-    @bills = current_user.bills + Bill.where('payer_id=? AND user_id <> ?', current_user.id, current_user.id)
+    @bills = Bill.where('payer_id=? OR user_id = ?', current_user.id, current_user.id).paginate(page: params[:page], per_page: 2)
     @users = User.all
     render :index
   end
@@ -103,7 +103,7 @@ class BillsController < ApplicationController
   end
 
   def count_about_me
-    about_me_bills = current_user.bills + Bill.where('payer_id=? AND user_id <> ?', current_user.id, current_user.id)
+    about_me_bills = Bill.where('payer_id=? OR user_id = ?', current_user.id, current_user.id)
     cookies[:about_me_count] = about_me_bills.size
   end
 

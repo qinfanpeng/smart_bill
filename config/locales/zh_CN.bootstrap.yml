@@ -71,6 +71,7 @@ zh_CN:
           attributes:
             name:
               blank: '不能为空'
+              taken: '已添加, 不能重复添加'
 
 
 # controller -> flash
@@ -121,6 +122,9 @@ zh_CN:
           success: '删除成功'
 
 # views
+  will_paginate:
+    previous_label: '上一页'
+    next_label: '下一页'
 
   sessions:
     new:
@@ -142,6 +146,7 @@ zh_CN:
       all_bills: '所有账单'
       my_bills: '我的账单'
       new_bill: '新建账单'
+      manage_goods_name: '常用商品管理'
 
   bills:
     index:
@@ -179,8 +184,16 @@ zh_CN:
       title: '用户列表'
       id: '序号'
       name: '用户名'
+      new: '添加用户'
   good_names:
     form:
       create_good_name: '添加商品'
       update_good_name: '修改商品'
       name: '商品名'
+    index:
+      title: '商品列表'
+      new: '添加商品'
+    new:
+      title: '添加商品'
+    edit:
+      title: '修改商品'

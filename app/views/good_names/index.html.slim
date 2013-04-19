@@ -1,6 +1,6 @@
 - model_class = GoodName
 div class="page-header"
-  h1=t '.title', :default => model_class.model_name.human.pluralize
+  h1=t '.title'
 table class="table table-striped"
   thead
     tr
@@ -16,5 +16,5 @@ table class="table table-striped"
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_good_name_path(good_name), :class => 'btn btn-mini'
           '
           = link_to t('.destroy', :default => t("helpers.links.destroy")), good_name_path(good_name), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
-
-= link_to t('.new', :default => t("helpers.links.new")), new_good_name_path, :class => 'btn btn-primary'
+= will_paginate
+= link_to t('.new'), new_good_name_path, :class => 'btn btn-primary'

@@ -53,4 +53,5 @@ table class="table table-striped"
             span.label.label-success
               '+
               = number_to_currency(user.figure, unit: '&yen')
+= will_paginate
 = link_to t("helpers.links.new"), new_bill_path, :class => 'btn btn-primary'
