@@ -6,36 +6,26 @@ class BillsController < ApplicationController
 
   include BillsHelper
 
+  respond_to :html, :json
+
   def index
     @bills = Bill.paginate(page: params[:page], per_page: 10)
-    @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @bills }
-    end
+    @users = User.all   # 因为index 页面结算需要用到users
+    respond_with @bills
   end
 
   def show
     @bill = Bill.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @bill }
-    end
+    respond_with @bill
   end
 
   def new
     @bill = Bill.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @bill }
-    end
+    respond_with @bill
   end
 
 
   def edit
-    @bill = Bill.find(params[:id])
     # 把已经有的账单信息发给前端
     @prePopulate = @bill.good_informations.map {|gf| {id: gf.good_name_id,
         name: gf.good_name, amount: gf.amount, price: gf.price, good_information_id: gf.id}}
@@ -43,41 +33,29 @@ class BillsController < ApplicationController
   end
 
   def create
-    respond_to do |format|
+    respond_with(@bill) do |format|
       if @bill.save
         flash[:success] = t('controllers.bill.flashs.create.success')
-        format.html { redirect_to @bill }
-        format.json { render json: @bill, status: :created, location: @bill }
       else
         flash[:error] = t('controllers.bill.flashs.update.error')
-        format.html { render action: "new" }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    respond_to do |format|
+    respond_with(@bill) do |format|
       if @bill.update_attributes(params[:bill])
         flash[:success] = t('controllers.bill.flashs.update.success')
-        format.html { redirect_to @bill }
-        format.json { head :no_content }
       else
         flash[:error] = t('controllers.bill.flashs.update.error')
-        format.html { render action: "edit" }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    # @bill = Bill.find(params[:id])
     @bill.destroy
     flash[:success] = t('controllers.bill.flashs.destroy.success')
-    respond_to do |format|
-      format.html { redirect_to bills_url }
-      format.json { head :no_content }
-    end
+    respond_with @bill
   end
 
   def my_bills
@@ -87,7 +65,8 @@ class BillsController < ApplicationController
   end
 
   def about_me
-    @bills = Bill.where('payer_id=? OR user_id = ?', current_user.id, current_user.id).paginate(page: params[:page], per_page: 2)
+    @bills = Bill.where('payer_id=? OR user_id = ?', current_user.id, current_user.id)
+      .paginate(page: params[:page], per_page: 2)
     @users = User.all
     render :index
   end

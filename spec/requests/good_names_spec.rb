@@ -79,8 +79,5 @@ describe "GoodActions" do
         page.should have_selector('div.alert-success', text: '删除成功')
       end
     end
-
-
-
   end
 end

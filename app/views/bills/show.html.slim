@@ -30,9 +30,8 @@ p
 
 .form-actions
   = link_to t("helpers.links.back"), bills_path, :class => 'btn'
-  '
-  = link_to t("helpers.links.edit"), edit_bill_path(@bill), :class => 'btn'
-  '
-  = link_to t("helpers.links.destroy"), bill_path(@bill),
-  :method => "delete", :data => { :confirm => t("helpers.links.confirm") },
-  :class => 'btn btn-danger'
+  -if creater? @bill
+    = link_to t("helpers.links.edit"), edit_bill_path(@bill), :class => 'btn'
+    = link_to t("helpers.links.destroy"), bill_path(@bill),
+    :method => "delete", :data => { :confirm => t("helpers.links.confirm") },
+    :class => 'btn btn-danger'

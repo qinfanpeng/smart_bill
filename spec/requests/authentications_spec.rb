@@ -20,12 +20,12 @@ describe "Authentications" do
 
   shared_examples_for 'require admin user' do
     it "Then I should see a notice 'only admin user can do this opration'" do
-      flash[:notice].should eq '对不起, 只有管理员才能进行此操作!'
+      flash[:error].should eq '对不起, 只有管理员才能进行此操作!'
     end
   end
 
   describe "As a non signined user" do
-    before { visit signout_path }
+    before(:all) { visit signout_path }
 
     context "When I visit the home page" do
       before { get bills_path }
@@ -69,7 +69,7 @@ describe "Authentications" do
   end
 
   describe "As a non crrect user" do
-    before { signin user }
+    before{ signin user }
 
     context "When I attempt to delete other's bill" do
       before { delete bill_path(a_bill_of_another_user) }

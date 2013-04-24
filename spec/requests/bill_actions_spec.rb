@@ -2,10 +2,8 @@
 require 'spec_helper'
 
 describe "Bill Actions" do
-
-  before do
-    @user = FactoryGirl.create(:user)
-  end
+  before { @user = FactoryGirl.create(:user) }
+  #let(:user) { FactoryGirl.create(:user) }
   let(:a_bill_of_the_user) { @user.bills.create!(count: 1, payer_id: @user.id)}
 
   subject { page }
@@ -100,7 +98,7 @@ describe "Bill Actions" do
     end
 
     describe "list my bills" do
-      before  do
+      before do
         bill1 = @user.bills.create!(count: 1, payer_id: @user.id)
         bill2 = @user.bills.create!(count: 2, payer_id: @user.id)
       end
