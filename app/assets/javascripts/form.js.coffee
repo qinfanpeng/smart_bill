@@ -61,13 +61,37 @@ jQuery ->
     hide_notice(@_control_group, 'info', 'span.help-inline.info')
     _self = $(this)
     _password = _self.parent().parent().parent().find('.password-field').first()
-    _error_label = $("<label class='error_message'> test </label>")
     if _self.val() == ''
       show_notice(@_control_group, @_controls, 'error',
       $("<label class='error_message'>不能为空</label>"), 'label.message')
     else if _self.val() != _password.val()
       show_notice(@_control_group, @_controls, 'error',
       $("<label class='error_message'>两次输入不匹配</label>"), 'label.message')
+    else
+      show_notice(@_control_group, @_controls, 'success',
+       @_help_inline_success, 'span.help-inline.success')
+
+  ###----------------------------------------------
+  # 因为model中没有old_password这个属性, 无法用client
+  # 验证没效，下面对它做专门验证
+  #------------------------------------------------
+  ###
+  $('#old_password').focus_blur ->
+    hide_notice($(this).parents('.control-group'), 'success', 'span.help-inline.success')
+    hide_notice(@_control_group, 'error', 'label.error_message')
+    show_notice(@_control_group, @_controls, 'info',
+    @_help_inline_info, 'span.help-inline.info')
+  ,
+  ->
+    hide_notice(@_control_group, 'info', 'span.help-inline.info')
+    _self = $(this)
+    hide_notice($(this).parents('.control-group'), 'success', 'span.help-inline.success')
+    if _self.val() == ''
+      show_notice(@_control_group, @_controls, 'error',
+      $("<label class='error_message'>不能为空</label>"), 'label.message')
+    else if _self.val()[5] == undefined
+      show_notice(@_control_group, @_controls, 'error',
+      $("<label class='error_message'>太短</label>"), 'label.message')
     else
       show_notice(@_control_group, @_controls, 'success',
        @_help_inline_success, 'span.help-inline.success')

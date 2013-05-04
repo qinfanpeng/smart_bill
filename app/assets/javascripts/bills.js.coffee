@@ -15,7 +15,7 @@ jQuery ->
 
   my_token_input = (_theme, _token_formatter, _prePopulate) ->
 
-    $('#bill_goods_token_input').tokenInput('/good_names',
+    $('#bill_goods_token_input').tokenInput('/goods_names',
       {
         theme: _theme,
         hintText: '请输入商品关键字'

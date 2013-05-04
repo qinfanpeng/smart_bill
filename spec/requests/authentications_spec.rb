@@ -79,16 +79,30 @@ describe "Authentications" do
     end
 
     context "When I attempt to edit other's password"do
-      before { get edit_user_path(another_user) }
+      before { get "/users/#{another_user.id}/edit_password" }
       it "Then I should see a notice 'you can't edit other's password'" do
-        flash[:error].should eq '对不起, 您只能修改您自己的密码'
+        flash[:error].should eq '对不起, 您只能修改您自己的账户信息'
       end
     end
 
-    context "When I attempt to update other's password"do
-      before { put user_path(another_user) }
+    context "When I attempt to upate other's password"do
+      before { post "/users/#{another_user.id}/update_password" }
       it "Then I should see a notice 'you can't upate other's password'" do
-        flash[:error].should eq '对不起, 您只能修改您自己的密码'
+        flash[:error].should eq '对不起, 您只能修改您自己的账户信息'
+      end
+    end
+
+    context "When I attempt to edit other's email" do
+      before { get "/users/#{another_user.id}/edit_email"}
+      it "Then I should see a notice 'you can't edit other's email'" do
+        flash[:error].should eq '对不起, 您只能修改您自己的账户信息'
+      end
+    end
+
+    context "When I attempt to update other's email" do
+      before { post "/users/#{another_user.id}/update_email"}
+      it "Then I should see a notice 'you can't update other's email'" do
+        flash[:error].should eq '对不起, 您只能修改您自己的账户信息'
       end
     end
   end

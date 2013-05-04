@@ -52,7 +52,11 @@ html lang="en"
                     = current_user.name
                     b.caret
                   ul.dropdown-menu
-                    li = link_to t('.change_password'), edit_user_path(current_user)
+                    li = link_to t('.change_password'), edit_password_user_path(current_user)
+                    -if has_email?
+                      li = link_to t('.edit_email'), edit_email_user_path(current_user)
+                    -else
+                      li = link_to t('.add_email'), edit_email_user_path(current_user)
                     li = link_to t('.signout'), signout_path
 
 

@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  attr_accessible :name, :password, :password_confirmation, :admin
+  attr_accessible :name, :password, :password_confirmation, :admin, :email
 
   validates :name, presence: true
   validates :password, presence: true, length: {minimum: 6}
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/}, allow_nil: true
   validates_confirmation_of :password
 
   has_many :bills, dependent: :destroy
@@ -17,5 +19,4 @@ class User < ActiveRecord::Base
   def figure
     self.paid - Bill.averge
   end
-
 end

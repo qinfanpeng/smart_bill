@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416061447) do
+ActiveRecord::Schema.define(:version => 20130424084123) do
 
   create_table "bills", :force => true do |t|
     t.decimal  "count"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20130416061447) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "admin",           :default => false
+    t.string   "email"
   end
 
 end

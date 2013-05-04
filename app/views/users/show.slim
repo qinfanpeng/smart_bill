@@ -6,11 +6,16 @@ p
   br
   = @user.name
 
-.form-actions
-  = link_to t("helpers.links.back"), users_path, :class => 'btn'
-  '
-  = link_to t("helpers.links.edit"), edit_user_path(@user), :class => 'btn'
-  '
-  = link_to t("helpers.links.destroy"), user_path(@user),
-  :method => "delete", :data => { :confirm => t("helpers.links.confirm") },
-  :class => 'btn btn-danger'
+-if has_email?
+  p
+    strong= t('.email') + ':'
+    br
+      = @user.email
+-if current_user.admin?
+  .form-actions
+    = link_to t("helpers.links.back"), users_path, :class => 'btn'
+    = link_to t("helpers.links.edit"), edit_user_path(@user), :class => 'btn'
+    -unless self? @user
+      = link_to t("helpers.links.destroy"), user_path(@user),
+      :method => "delete", :data => { :confirm => t("helpers.links.confirm") },
+      :class => 'btn btn-danger'

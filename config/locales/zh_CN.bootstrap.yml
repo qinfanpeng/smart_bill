@@ -65,8 +65,13 @@ zh_CN:
               blank: '不能为空'
               too_short: '太短'
               confirmation: '两次输入不匹配'
+            old_password:
+              blank: '不能为空'
+              too_short: '太短'
             password_confirmation:
               blank: '不能为空'
+            email:
+              invalid: '格式无效'
         good_name:
           attributes:
             name:
@@ -80,7 +85,7 @@ zh_CN:
     require_sign_in: '请先登录'
     require_admin: '对不起, 只有管理员才能进行此操作!'
     not_the_admin: '您不能删除您自己'
-    require_self: '对不起, 您只能修改您自己的密码'
+    require_self: '对不起, 您只能修改您自己的账户信息'
     bill:
       require_creater: '对不起, 只有账单创建者才能, 若急需删除此账单, 请联系创建者'
       flashs:
@@ -110,6 +115,13 @@ zh_CN:
           error: '修改用户失败'
         destroy:
           success: '删除成功'
+        update_email:
+          success: '操作成功'
+          error: '操作失败'
+        update_password:
+          success: '密码修改成功'
+          error: '密码修改失败'
+          not_correct_error: '旧密码错误, 密码修改失败'
     good_name:
       flashs:
         create:
@@ -147,6 +159,8 @@ zh_CN:
       my_bills: '我的账单'
       new_bill: '新建账单'
       manage_goods_name: '常用商品管理'
+      edit_email: '改邮箱地址'
+      add_email: '录入邮箱地址'
 
   bills:
     index:
@@ -180,11 +194,22 @@ zh_CN:
       change_password: '修改密码'
     show:
       title: '用户'
+      name: '用户名'
+      email: '邮箱地址'
     index:
       title: '用户列表'
       id: '序号'
       name: '用户名'
       new: '添加用户'
+    edit_email:
+      edit_email: '修改邮箱地址'
+      add_email: '录入邮箱地址'
+      email: '邮箱地址'
+    edit_password:
+      old_password: '旧密码'
+      password: '密码'
+      confirmation: '确认密码'
+      update_password: '改密码'
   good_names:
     form:
       create_good_name: '添加商品'

@@ -1,0 +1,19 @@
+div class="page-header"
+  -if has_email?
+    h1 = t '.edit_email'
+  -else
+    h1 = t '.add_email'
+= form_for @user, url: "/users/#{current_user.id}/update_email",
+validate: true, html: { class: "form-horizontal", method: :post } do |f|
+  = render 'shared/error_messages', object: f.object
+  .control-group
+    = f.label t('.email')+':', class: 'control-label', for: 'user_email'
+    .controls
+      = f.email_field :email, class: 'email-field',
+      data: {info: '请输入你的邮箱地址'}
+  .form-actions
+    -if has_email?
+      = f.submit t('.edit_email'), class: 'btn btn-primary', id: 'edit_email_btn'
+    -else
+      = f.submit t('.add_email'), class: 'btn btn-primary', id: 'edit_email_btn'
+    = link_to t("helpers.links.cancel"), bills_path, :class => 'btn'

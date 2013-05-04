@@ -1,11 +1,13 @@
 FactoryGirl.define do
   factory :user do
     name      'qinfanpeng'
+    email     'qinfanpeng@gmail.com'
     password  'qinfanpeng'
   end
 
   factory :good_name do
-    name 'test_good_name'
+    #name "test_good_name#{_i}"
+    sequence(:name) {|n| p n }
   end
 
   factory :good_information do
