@@ -122,6 +122,9 @@ zh_CN:
           success: '密码修改成功'
           error: '密码修改失败'
           not_correct_error: '旧密码错误, 密码修改失败'
+        get_password:
+          success: '新密码将随后发送至您的邮箱, 请注意查收'
+          error: '邮箱地址有误, 或是你还没完善你的账户邮箱信息, 故不能找回密码, 请联系管理员'
     good_name:
       flashs:
         create:
@@ -145,6 +148,7 @@ zh_CN:
       login: '登录'
       title: '登录'
       remember_me: '记住我'
+      forget_password: '忘记密码?'
 
   layouts:
     application:
@@ -210,6 +214,9 @@ zh_CN:
       password: '密码'
       confirmation: '确认密码'
       update_password: '改密码'
+    forget_password:
+      email: '邮箱地址'
+      get_password: '找回密码'
   good_names:
     form:
       create_good_name: '添加商品'

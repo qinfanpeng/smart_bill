@@ -21,5 +21,6 @@ SmartBill::Application.routes.draw do
   match '/goods_names', to: 'good_names#names'
  # match '/edit_email', to: 'users#edit_email'
  # match '/update_email', to: 'users#update_email'
-  match 'forget_password', to: 'users#forget_password'
+  match '/forget_password', to: 'users#forget_password'
+  match '/get_password', to: 'users#get_password'
 end

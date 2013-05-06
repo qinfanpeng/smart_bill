@@ -3,7 +3,7 @@ div class="page-header"
     h1 = t '.edit_email'
   -else
     h1 = t '.add_email'
-= form_for @user, url: "/users/#{current_user.id}/update_email",
+= form_for @user, url: update_email_user_path(@user),
 validate: true, html: { class: "form-horizontal", method: :post } do |f|
   = render 'shared/error_messages', object: f.object
   .control-group

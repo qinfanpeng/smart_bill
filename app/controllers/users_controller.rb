@@ -3,7 +3,8 @@ require 'pry'
 class UsersController < ApplicationController
   before_filter :require_admin, only: [:index, :new, :create, :destroy]
   before_filter :not_the_admin, only: [:destroy]
-  before_filter :require_self, only: [:edit, :update, :edit_email, :update_email, :edit_password, :update_password]
+  before_filter :require_self, only: [:edit_email, :update_email, :edit_password, :update_password]
+  skip_before_filter :require_sign_in, only: [:forget_password, :get_password]
   respond_to :html, :json
 
   def index
@@ -27,21 +28,7 @@ class UsersController < ApplicationController
       end
     end
   end
-=begin
-  def edit
-    respond_with @user
-  end
 
-  def update
-    respond_with @user do |format|
-      if @user.update_attributes(params[:user])
-        flash[:success] = t('controllers.user.flashs.update.success')
-      else
-        flash[:error] = t('controllers.user.flashs.update.success')
-      end
-    end
-  end
-=end
   def show
     @user = User.find(params[:id])
     respond_with(@user)
@@ -85,6 +72,24 @@ class UsersController < ApplicationController
       flash[:error] = t('controllers.user.flashs.update_password.not_correct_error')
       redirect_to edit_password_user_path(@user)
     end
+  end
+
+  def forget_password
+    @user = User.new
+  end
+
+  def get_password
+    @user = User.find_by_email(params[:user][:email])
+    random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+    if @user && @user.update_attribute(:password, random_password)
+      UserMailer.get_password(@user.email, random_password, signin_url).deliver
+      flash[:success] = t('controllers.user.flashs.get_password.success')
+      redirect_to signin_url
+    else
+      flash[:error] = t('controllers.user.flashs.get_password.error')
+      redirect_to :forget_password
+    end
+
   end
 
   private

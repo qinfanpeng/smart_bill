@@ -29,20 +29,26 @@ describe "User Actions" do
         page.should have_selector('div.alert-error', text: '登录失败，用户名或密码错误！')
       end
     end
-
     context "When I forget my password" do
-      #before { click_link '忘记密码?' }
-      context "If I had inputed my emails address" do
-        it "Then I should see a notice 'your password was sent to your emailbox'" do
-       #   page.should have_selector('div.alert-success', text: '密码已发送至您的邮箱, 请注意查收')
+      context "When I click 'forget_password?'" do
+        before { click_link '忘记密码?' }
+        it "Then I should be taken to get_password page" do
+          current_path.should eq forget_password_path
         end
       end
-      context "If I haven't inputed my emails address" do
-        it "Then I should see a notice 'your email address isn't correct or nil'" do
-        #  page.should have_selector('div.alert-success', text: '您还没录入你的邮箱地址或是邮箱地址无效')
+      context "When I input my correct email address" do
+        before do
+          click_link '忘记密码?'
+          fill_in '邮箱地址', with: user.email
+          click_button '找回密码'
         end
-      end
+        it "Then I shoud see a notice 'your new password was sent to your emailbox'" do
+          page.should have_selector('div.alert-success', test: '新密码将随后发送至您的邮箱, 请注意查收')
+        end
+        it "Then I shoud really sent out an email " do
 
+        end
+      end
     end
   end
 
