@@ -80,7 +80,6 @@ html lang="en"
       p &copy; json 2013
       = debug(params) if Rails.env.development?
   /!
-    Javascripts
     \==================================================
   /! Placed at the end of the document so the pages load faster
-  = javascript_include_tag "application"
+  = javascript_include_tag 'application'
