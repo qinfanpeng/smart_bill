@@ -34,26 +34,6 @@ table class="table table-striped"
             :data => { :confirm => t("helpers.links.confirm") },
             :class => 'btn btn-mini btn-danger'
 
-.alert.alert-info
-  .row-fluid.bill_notice
-    .span2
-      strong= t('.total')+': '
-      = number_to_currency(total, unit: '&yen')
-    .span2
-      strong= t('.averge')+': '
-      = number_to_currency(averge, unit: '&yen')
-    .span8
-      strong= t('.figure')+':'
-      -@users.each do |user|
-        span.figure
-          span.name
-           =user.name+':'
-          -if user.figure < 0
-            span.label.label-warning
-              = number_to_currency(user.figure, unit: '&yen')
-          -else
-            span.label.label-success
-              '+
-              = number_to_currency(user.figure, unit: '&yen')
-= will_paginate
+
+= will_paginate(@bills)
 = link_to t("helpers.links.new"), new_bill_path, :class => 'btn btn-primary'

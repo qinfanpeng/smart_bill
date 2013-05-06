@@ -103,12 +103,10 @@ class UsersController < ApplicationController
   end
   def require_self
     @user = User.find(params[:id])
-    #unless current_user.admin?
-      unless @user.id == current_user.id
-        flash[:error] = t('controllers.require_self')
-        redirect_to root_url
-      end
-    #end
+    unless @user.id == current_user.id
+      flash[:error] = t('controllers.require_self')
+      redirect_to root_url
+    end
   end
 
 end

@@ -46,7 +46,7 @@ describe "User Actions" do
           page.should have_selector('div.alert-success', test: '新密码将随后发送至您的邮箱, 请注意查收')
         end
         it "Then I shoud really sent out an email " do
-
+          ActionMailer::Base.deliveries.empty?.should == false
         end
       end
     end

@@ -229,3 +229,17 @@ zh_CN:
       title: '添加商品'
     edit:
       title: '修改商品'
+# ----------------------------------------------------
+  bill:
+    settle: 结算账单
+    total: 合计
+    averge: 人均
+    clearing_balance: 结算差额
+  user:
+    name: 用户名
+    balance: 差额
+
+
+
+  public:
+    id: 序号

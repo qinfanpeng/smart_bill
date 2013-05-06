@@ -1,0 +1,23 @@
+div class="page-header"
+  h1 = t '.settlement'
+table.table.table-condensed.table-striped
+  thead
+    tr
+      th = t '.helpers.id'
+      th = t 'user.name'
+      th = t 'user.figure'
+  - i = 0
+  tbody
+    -@users.each do |user|
+      - i += 1
+      tr
+        td = i
+        td =user.name
+        td
+          -if user.figure < 0
+            span.label.label-warning
+              = number_to_currency(user.figure, unit: '&yen')
+          -else
+            span.label.label-success
+              '+
+              = number_to_currency(user.figure, unit: '&yen')

@@ -2,7 +2,12 @@ SmartBill::Application.routes.draw do
     resources :goods
 
   root to: "bills#index"
-  resources :bills
+  resources :bills do
+    collection do
+      get 'settle'
+      get :clearing_balance
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :users do
     member do

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe User do
   before(:all) { @user =  FactoryGirl.create(:user) }
-
   subject { @user }
 
   it { should be_valid }

@@ -1,0 +1,35 @@
+div class="page-header"
+  h1 = t 'bill.settle'
+table.table.table-striped
+  thead
+    tr
+      th = t 'public.id'
+      th = t 'user.name'
+      th = t 'user.balance'
+  - i = 0
+  tbody
+    -@users.each do |user|
+      - i += 1
+      tr
+        td = i
+        td =user.name
+        td
+          -if user.balance < 0
+            span.label.label-warning
+              = number_to_currency(user.balance, unit: '&yen')
+          -else
+            span.label.label-success
+              '+
+              = number_to_currency(user.balance, unit: '&yen')
+
+
+.alert.alert-info
+  .row-fluid.bill_notice
+    .span2
+      strong= t('bill.total')+': '
+      = number_to_currency(total, unit: '&yen')
+    .span2
+      strong= t('bill.averge')+': '
+      = number_to_currency(averge, unit: '&yen')
+= will_paginate(@users)
+= link_to t("bill.clearing_balance"), clearing_balance_bills_path, :class => 'btn btn-primary'

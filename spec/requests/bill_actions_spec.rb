@@ -117,5 +117,30 @@ describe "Bill Actions" do
       end
     end
 
+    context "settle bills" do
+      before do
+        @another = User.create!(name: 'another', password: 'another')
+        bill1 = @user.bills.create!(count: 1, payer_id: @user.id)
+        bill2 = @user.bills.create!(count: 2, payer_id: @user.id)
+        bill3 = @user.bills.create!(count: 5 , payer_id: @another.id)
+      end
+      context "When I click settle_bill" do
+        before { visit settle_bills_path }
+        it "Then I shoud be taken to settle bill page" do
+                  current_path.should == settle_bills_path
+        end
+        it "And I shoud see people's balance here" do
+          @user.balance.should == -1
+          @another.balance.should == 1
+        end
+        it "And I shoud see bill's total amount here" do
+          Bill.total.should == 8
+        end
+        it "And I shoud see bill's averge here" do
+          Bill.averge.should == 4
+        end
+      end
+    end
+
   end
 end

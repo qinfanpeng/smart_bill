@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     self.paid_bills.inject(0) {|paid, paid_bill| paid + paid_bill.count }
   end
 
-  def figure
+  def balance
     self.paid - Bill.averge
   end
 end
