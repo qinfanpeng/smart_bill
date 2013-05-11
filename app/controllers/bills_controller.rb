@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
+require 'pry'
 class BillsController < ApplicationController
   before_filter :require_creater, only: [:destroy, :update, :edit]
   after_filter :count_about_me, only: [:create, :update, :destroy]
   before_filter :handle_goods_infos , only: [:update, :create]
-
+  before_filter :prepare_date_data, only: [:index, :my, :about_me, :settle]
+  before_filter :prepare_page_data, only: [:index, :my, :about_me, :settle]
   include BillsHelper
 
   respond_to :html, :json
 
   def index
-    @bills = Bill.paginate(page: params[:page], per_page: 10)
-    @users = User.all   # 因为index 页面结算需要用到users
+    @bills = Bill
+      .where('created_at > ? AND created_at < ?',
+         @date.beginning_of_month.beginning_of_day,
+         @date.end_of_month.end_of_day)
+      .paginate(page: params[:page], per_page: 10)
+
     respond_with @bills
   end
 
@@ -58,20 +64,24 @@ class BillsController < ApplicationController
     respond_with @bill
   end
 
-  def my_bills
-    @bills = current_user.bills.paginate(page: params[:page], per_page: 10)
-    @users = User.all
-    render :index
+  def my
+    @bills = Bill.where('user_id=?', current_user.id)
+      .where('created_at > ? AND created_at < ?',
+         @date.beginning_of_month.beginning_of_day,
+         @date.end_of_month.end_of_day)
+      .paginate(page: params[:page], per_page: 10)
   end
 
   def about_me
     @bills = Bill.where('payer_id=? OR user_id = ?', current_user.id, current_user.id)
-      .paginate(page: params[:page], per_page: 2)
-    @users = User.all
-    render :index
+      .where('created_at > ? AND created_at < ?',
+         @date.beginning_of_month.beginning_of_day,
+         @date.end_of_month.end_of_day)
+      .paginate(page: params[:page], per_page: 10)
   end
 
   def settle # 结算
+    @page = params[:page] # 为前端序号所用
     @users = User.paginate(page: params[:page], per_page: 10)
   end
 
@@ -95,7 +105,6 @@ class BillsController < ApplicationController
   end
 
   def handle_goods_infos
-
     good_name_ids = params[:good_name_ids].split(',') #获取账单中的name id
     _new_name_id = 50000 # 为防止冲突,故为新建账单创建一个比较大初始值
 
@@ -137,4 +146,16 @@ class BillsController < ApplicationController
       end
     end
   end
+
+  def prepare_date_data
+    @year = Date.today.year
+    @month = Date.today.month
+    if params[:date]
+     @year = params[:date][:year].to_i
+      @month = params[:date][:month].to_i
+    end
+    @date = Date.new(@year, @month)
+  end
+
+
 end

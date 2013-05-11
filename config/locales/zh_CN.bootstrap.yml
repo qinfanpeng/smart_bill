@@ -235,6 +235,13 @@ zh_CN:
     total: 合计
     averge: 人均
     clearing_balance: 结算差额
+    my_bills: 我的账单
+    all_bills: 所有账单
+    about_me: 与我相关
+    goods: 商品
+    creater: 创建者
+    count: 金额
+    payer: 支付者
   user:
     name: 用户名
     balance: 差额
@@ -243,3 +250,5 @@ zh_CN:
 
   public:
     id: 序号
+    search: 查询
+    disable_with: 请等待...

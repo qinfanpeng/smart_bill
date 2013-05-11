@@ -11,7 +11,7 @@ table.table.table-striped
     - @users.each do |user|
       -i+=1
       tr
-        td= i
+        td= i+@page.to_i * 10
         td= link_to user.name, user
         td
           = link_to t('helpers.links.edit'), edit_user_path(user), class: 'btn btn-mini'

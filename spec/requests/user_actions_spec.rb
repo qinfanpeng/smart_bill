@@ -12,7 +12,7 @@ describe "User Actions" do
       before { signin user }
 
       it "Then I should be taken to the index page" do
-        page.should have_selector 'h1', text: '账单列表'
+        current_path.should == root_path
       end
       it "Then I should see a welcome notice" do
         page.should have_selector('div.alert-success', text: '欢迎您')

@@ -1,5 +1,6 @@
 class GoodNamesController < ApplicationController
   before_filter :require_admin, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :prepare_page_data, only: [:index]
   respond_to :html, :json
   def names
     @names = GoodName.where('name like ?', "%#{params[:q]}%")

@@ -63,7 +63,7 @@ describe "Authentications" do
     end
 
     context "When I attempt to get about_me" do
-      before { get about_me_path }
+      before { get about_me_bills_path }
       it_behaves_like 'require sign in'
     end
   end

@@ -20,7 +20,7 @@
 
   .form-actions
     -if @user.new_record?
-      = f.submit t('.create'), class: 'btn btn-primary'
+      = f.submit t('.create'), class: 'btn btn-primary',disable_with: t('public.disable_with')
     -else
-      = f.submit t('.update'), class: 'btn btn-primary'
+      = f.submit t('.update'), class: 'btn btn-primary', disable_with: t('public.disable_with')
     = link_to t("helpers.links.cancel"), users_path, :class => 'btn'

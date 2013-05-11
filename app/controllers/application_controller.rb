@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
         redirect_to root_url
       end
     end
+
+    def prepare_page_data
+      @page = params[:page]
+    end
 end

@@ -12,7 +12,7 @@ table class="table table-striped"
     - @good_names.each do |good_name|
       -i += 1
       tr
-        td= i
+        td= i+@page.to_i * 10
         td= good_name.name
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_good_name_path(good_name), :class => 'btn btn-mini'

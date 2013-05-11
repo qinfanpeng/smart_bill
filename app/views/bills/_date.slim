@@ -1,0 +1,6 @@
+= form_tag action, class: 'form-horizontial well form-inline ', method: :get do
+  = select_year @date, {start_year: 2013}, {class: 'input-small'}
+  '年
+  = select_month @date, {use_month_numbers: true}, class: 'input-small'
+  '月
+  = submit_tag t('public.search'), class: 'ml15', disable_with: t('public.disable_with')

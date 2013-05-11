@@ -46,7 +46,7 @@ html lang="en"
                   = link_to t('.signin'), signin_path
               -else
                 li
-                  a href='/about_me' title='与我相关'
+                  a href='#{about_me_bills_path}' title='与我相关'
                     span.badge.badge-success
                       = about_me_count
                 li.dropdown

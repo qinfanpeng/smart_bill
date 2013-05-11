@@ -9,12 +9,23 @@ class Bill < ActiveRecord::Base
   belongs_to :payer, class_name: 'User', foreign_key: :payer_id
   has_many :good_informations, :dependent => :destroy, class_name: :GoodInformation, :inverse_of => :bill
 
-  def self.total
-    all.inject(0) {|total, bill| total+bill.count }
+  def self.total(date)
+    self
+      .where('created_at > ? AND created_at < ?',
+         date.beginning_of_month.beginning_of_day,
+         date.end_of_month.end_of_day)
+      .inject(0) {|total, bill| total+bill.count }
   end
 
-  def self.averge
-    total / User.count
+  def self.averge(date)
+    total(date) / User.count
+  end
+
+  def self.get_bills_by_year_and_month(year, month)
+    date = Date.new(year, month)
+    where('created_at > ? AND created_at < ?',
+      date.beginning_of_month.beginning_of_day,
+      date.end_of_month.end_of_day)
   end
 
 end

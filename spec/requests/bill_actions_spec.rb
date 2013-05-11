@@ -83,7 +83,7 @@ describe "Bill Actions" do
 
         it "And I should been take to the bills index page" do
           click_link '删除'
-          page.should have_selector('h1', text: '账单列表')
+          current_path.should == bills_path
         end
       end
     end
@@ -92,7 +92,7 @@ describe "Bill Actions" do
       context "When I go to the bill index page" do
         before { visit bills_path }
         it "Then I should see 'Bills'" do
-          page.should have_selector('h1', text: '账单列表')
+          current_path.should == bills_path
         end
       end
     end
@@ -110,7 +110,7 @@ describe "Bill Actions" do
       end
 
       context "When I click about_me" do
-        before { visit about_me_path }
+        before { visit about_me_bills_path }
         it "Then I should see these bills's creater or payer must be me" do
           page.all('td', text: @user.name).size.should == 4 # 此处准备的测试数据中的creater和payer都是当前用户@user,故应是 4
         end
@@ -130,14 +130,14 @@ describe "Bill Actions" do
                   current_path.should == settle_bills_path
         end
         it "And I shoud see people's balance here" do
-          @user.balance.should == -1
-          @another.balance.should == 1
+          @user.balance(Date.today).should == -1
+          @another.balance(Date.today).should == 1
         end
         it "And I shoud see bill's total amount here" do
-          Bill.total.should == 8
+          Bill.total(Date.today).should == 8
         end
         it "And I shoud see bill's averge here" do
-          Bill.averge.should == 4
+          Bill.averge(Date.today).should == 4
         end
       end
     end

@@ -1,0 +1,40 @@
+table class="table table-striped"
+  thead
+    tr
+      th= t 'helpers.id'
+      th= t 'bill.goods'
+      th= t 'bill.creater'
+      th= t 'bill.count'
+      th= t 'bill.payer'
+      th= t 'helpers.created at'
+      th= t "helpers.actions"
+  tbody
+    - if @bills.size != 0
+      - i = 0
+      - @bills.each do |bill|
+        - i += 1
+        tr
+          td= i+@page.to_i * 10
+          td= link_to (truncate goods_names(bill), length: 20), bill
+          - unless bill.user.nil?
+            td.creater
+              = bill.user.name
+          td= number_to_currency(bill.count, unit: '&yen')
+          - unless bill.payer.nil?
+            td.payer
+              = bill.payer.name
+          td= t (bill.created_at).strftime('%Y年%m月%d日 %H:%M:%S')
+          td
+            -if creater? bill
+              = link_to t("helpers.links.edit"), edit_bill_path(bill), :class => 'btn btn-mini'
+              = link_to t("helpers.links.destroy"), bill_path(bill),
+              :method => :delete,
+              :data => { :confirm => t("helpers.links.confirm") },
+              :class => 'btn btn-mini btn-danger'
+    -else
+      tr
+        td colspan=7
+          center 暂无数据
+
+
+= will_paginate(@bills)

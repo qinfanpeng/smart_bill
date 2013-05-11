@@ -16,5 +16,5 @@ div class="page-header"
         = check_box_tag :remember_me, 'true'
         = t('.remember_me')
   .form-actions
-    = f.submit t('.login'), class: 'btn btn-primary'
+    = f.submit t('.login'), class: 'btn btn-primary', disable_with: t('public.disable_with')
     = link_to t('.forget_password'), forget_password_path

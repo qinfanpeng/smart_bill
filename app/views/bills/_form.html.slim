@@ -31,7 +31,7 @@
       = collection_select(:bill, :payer_id, User.all, :id, :name,{selected: current_user.id}, {data:{info: '请选择支付人'}})
   .form-actions
     -if @bill.new_record?
-      = f.submit t('helpers.buttons.Create Bill'), :class => 'btn btn-primary'
+      = f.submit t('helpers.buttons.Create Bill'), :class => 'btn btn-primary', disable_with: t('public.disable_with')
     -else
-      = f.submit t('helpers.buttons.Update Bill'), :class => 'btn btn-primary'
+      = f.submit t('helpers.buttons.Update Bill'), :class => 'btn btn-primary', disable_with: t('public.disable_with')
     = link_to t("helpers.links.cancel"), bills_path, :class => 'btn'

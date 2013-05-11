@@ -12,11 +12,15 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  def paid
-    self.paid_bills.inject(0) {|paid, paid_bill| paid + paid_bill.count }
+  def paid(date)
+    self.paid_bills
+      .where('created_at > ? AND created_at < ?',
+       date.beginning_of_month.beginning_of_day,
+       date.end_of_month.end_of_day)
+      .inject(0) {|paid, paid_bill| paid + paid_bill.count }
   end
 
-  def balance
-    self.paid - Bill.averge
+  def balance(date)
+    self.paid(date) - Bill.averge(date)
   end
 end
