@@ -94,6 +94,13 @@ describe "Bill Actions" do
         it "Then I should see 'Bills'" do
           current_path.should == bills_path
         end
+        it "And I shoud see all the bills's date default is current year and month" do
+          #page.should_not have_content Date.today.strftime('%Y年%m月')
+          page.should have_content Date.today.year
+          page.should have_content Date.today.month
+          #page.should_not have_content Date.today.next_month.strftime('%Y年%m月')
+          #page.should_not have_content Date.today.prev_month.strftime('%Y年%m月')
+        end
       end
     end
 
@@ -130,14 +137,14 @@ describe "Bill Actions" do
                   current_path.should == settle_bills_path
         end
         it "And I shoud see people's balance here" do
-          @user.balance(Date.today).should == -1
+          @user.balance(Date.today).should == -1             #默认算的是当前月的差额
           @another.balance(Date.today).should == 1
         end
         it "And I shoud see bill's total amount here" do
-          Bill.total(Date.today).should == 8
+          Bill.total(Date.today).should == 8                 # 默认算的是当前月的消费总额
         end
         it "And I shoud see bill's averge here" do
-          Bill.averge(Date.today).should == 4
+          Bill.averge(Date.today).should == 4                # 默认算的是当前月的平均消费
         end
       end
     end
