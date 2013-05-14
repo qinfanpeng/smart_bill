@@ -1,0 +1,19 @@
+div class="page-header"
+  h1=t ('group.detail')
+p
+  strong = t('group.name') + ':'
+  span.ml10 = @group.name
+p
+  strong = t('group.creater')+':'
+  span.ml10
+    = link_to @group.creater.name, @group.creater
+p
+  strong = t('group.members') +':'
+  div.ml10
+    = render 'members'
+
+-if @group.creater == current_user
+  .form-actions
+    = link_to t("helpers.links.destroy"), @group,
+    :method => "delete", :data => { :confirm => t("helpers.links.confirm") },
+    :class => 'btn btn-danger'

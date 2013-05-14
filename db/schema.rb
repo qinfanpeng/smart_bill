@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424084123) do
+ActiveRecord::Schema.define(:version => 20130512105437) do
 
   create_table "bills", :force => true do |t|
     t.decimal  "count"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(:version => 20130424084123) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "creater_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "joined_group_members", :force => true do |t|
+    t.integer  "joined_group_id"
+    t.integer  "member_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "users", :force => true do |t|

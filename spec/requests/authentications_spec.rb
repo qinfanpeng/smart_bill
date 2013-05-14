@@ -8,6 +8,8 @@ describe "Authentications" do
   let(:a_bill_of_another_user) { create_bill(user: another_user) }
   let(:bill) { create_bill }
   let(:good_name) { FactoryGirl.create(:good_name) }
+  let(:group) { user.created_groups.create!(name: 'group1') }
+  let(:a_group_of_another_user) { another_user.created_groups.create!(name: 'another_group')}
 
   shared_examples_for 'require sign in' do
     it "Then I should be taken to the signin page" do
@@ -21,6 +23,18 @@ describe "Authentications" do
   shared_examples_for 'require admin user' do
     it "Then I should see a notice 'only admin user can do this opration'" do
       flash[:error].should eq '对不起, 只有管理员才能进行此操作!'
+    end
+  end
+
+  shared_examples_for 'not_group_creater' do
+    it "Then I should see a notice 'you can't do this for yourself'" do
+      flash[:error].should eq '您是账单组的创建者, 默认已经加入其中, 因此您不能对自己进行此项操作'
+    end
+  end
+
+  shared_examples_for 'require_group_creater' do
+    it "Then I should see a notice 'you can't delete anoter's group'" do
+      flash[:error].should eq '对不起, 只有账单组创建者才能进行此操作'
     end
   end
 
@@ -105,6 +119,37 @@ describe "Authentications" do
         flash[:error].should eq '对不起, 您只能修改您自己的账户信息'
       end
     end
+
+    context "When I attempt to add myself to my created group" do
+      before { post add_member_to_group_path(group, member_id: user.id) }
+      it_behaves_like 'not_group_creater'
+    end
+
+    context "When I attempt to remove myself form my created group" do
+      before { delete remove_member_of_group_path(group, member_id: user.id) }
+      it_behaves_like 'not_group_creater'
+    end
+
+    context "When I attempt to delete another's created groups" do
+      before { delete group_path(a_group_of_another_user) }
+      it_behaves_like 'require_group_creater'
+    end
+
+    context "When I attempt remove another's created group's member" do
+      before { delete remove_member_of_group_path(a_group_of_another_user, member_id: another_user.id) }
+      it_behaves_like 'require_group_creater'
+    end
+
+    context "When I attempt to new member to anoter's group" do
+      before { get new_member_to_group_path(a_group_of_another_user) }
+      it_behaves_like 'require_group_creater'
+    end
+
+    context "When I attempt to add member to anoter's group" do
+      before { post add_member_to_group_path(a_group_of_another_user, member_id: user.id) }
+      it_behaves_like 'require_group_creater'
+    end
+
   end
 
   describe "As a non admin user" do

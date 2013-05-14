@@ -1,0 +1,24 @@
+table.table.table-striped
+  thead
+    tr
+      th= t '.id'
+      th= t '.name'
+      th= t 'helpers.actions'
+  tbody
+    -i=0
+    - @members.each do |member|
+      -i+=1
+      tr
+        td= i+@page.to_i * 10
+        td= link_to member.name, member
+        td
+          -if @group.creater == current_user
+            -unless @group.creater == member
+              = link_to t("helpers.links.destroy"), remove_member_of_group_path(@group, member_id: member.id),
+              :method => :delete,
+              :data => { :confirm => t("helpers.links.confirm") },
+              :class => 'btn btn-mini btn-danger'
+            -else
+              '暂无操作
+          -else
+            '暂无操作

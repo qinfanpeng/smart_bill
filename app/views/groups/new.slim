@@ -1,0 +1,12 @@
+div class="page-header"
+  h1=t ('group.new')
+
+= form_for @group, :validate => true, :html => { :class => "form-horizontal" } do |f|
+  = render 'shared/error_messages', object: f.object
+  .control-group
+    = f.label t('group.name') + ':', :class => 'control-label', for: 'group_name'
+    .controls
+      = f.text_field :name, data: {info: '请输入账单组的名字'}
+  .form-actions
+    = f.submit t('group.new'), :class => 'btn btn-primary', disable_with: t('public.disable_with')
+    = link_to t("helpers.links.cancel"), groups_path, :class => 'btn'

@@ -33,4 +33,3 @@ table.table.table-striped
       strong= t('bill.averge')+': '
       = number_to_currency(Bill.averge(@date), unit: '&yen')
 = will_paginate(@users)
-= link_to t("bill.clearing_balance"), clearing_balance_bills_path, :class => 'btn btn-primary'

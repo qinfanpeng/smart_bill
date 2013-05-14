@@ -36,6 +36,8 @@ html lang="en"
                 -else
                   li= link_to t(".all_bills"), bills_path
                 li= link_to t(".my_bills"), my_bills_path
+                li= link_to t("group.my_groups"), my_groups_path
+                li= link_to t("bill.new_group"), new_group_path
                 li= link_to t(".new_bill"), new_bill_path
                 li= link_to t("bill.settle"), settle_bills_path
 

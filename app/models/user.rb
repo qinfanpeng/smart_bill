@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_many :bills, dependent: :destroy
   has_many :paid_bills, dependent: :destroy, class_name: 'Bill', foreign_key: 'payer_id'
 
+  has_many :joined_group_members, foreign_key: :member_id
+  has_many :joined_groups, through: :joined_group_members, class_name: :Group
+  has_many :created_groups, foreign_key: :creater_id, class_name: :Group
+
   has_secure_password
 
   def paid(date)

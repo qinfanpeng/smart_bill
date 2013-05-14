@@ -85,10 +85,6 @@ class BillsController < ApplicationController
     @users = User.paginate(page: params[:page], per_page: 10)
   end
 
-  def clearing_balance # 清空差额
-    redirect_to settle_bills_path
-  end
-
   private
 
   def require_creater

@@ -44,6 +44,8 @@ zh_CN:
         password_confirmation: '确认密码'
       good_name:
         name: '商品名'
+      group:
+        name: 账单组名
     errors:
       models:
         bill:
@@ -77,6 +79,10 @@ zh_CN:
             name:
               blank: '不能为空'
               taken: '已添加, 不能重复添加'
+        group:
+          attributes:
+            name:
+              blank: '不能为空'
 
 
 # controller -> flash
@@ -242,9 +248,30 @@ zh_CN:
     creater: 创建者
     count: 金额
     payer: 支付者
+    new_group: 新建账单组
   user:
     name: 用户名
     balance: 差额
+  group:
+    new: 新建账单组
+    name: 账单组名
+    creater: 账单组创建者
+    members: 账单组所有成员
+    new_member: 添加成员
+    manage_member: 成员管理
+    continue_new_member: 继续添加成员
+    create_error: 账单组创建失败
+    create_success: 账单组创建成功, 请为它添加成员
+    add_member_error: 添加成员失败
+    add_member_success: 添加成员成功
+    remove_member_success: 删除成员成功
+    remove_success: 账单组删除成功
+    my_groups: 账单组
+    not_creater_error: 您是账单组的创建者, 默认已经加入其中, 因此您不能对自己进行此项操作
+    require_creater_error: 对不起, 只有账单组创建者才能进行此操作
+    detail: 账单组详情
+    member:
+      add: 添加
 
 
 

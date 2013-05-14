@@ -5,7 +5,6 @@ SmartBill::Application.routes.draw do
   resources :bills do
     collection do
       get 'settle'
-      get :clearing_balance
       get :my
       get :about_me
     end
@@ -21,13 +20,21 @@ SmartBill::Application.routes.draw do
   end
   resources :good_names
 
+  resources :groups do
+    member do
+      get :new_member_to
+      post :add_member_to
+      get :members_of
+      delete :remove_member_of
+    end
+    collection do
+      get :my
+    end
+  end
+
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
-  #match 'my_bills', to: 'bills#my_bills'
-  #match '/about_me', to: 'bills#about_me'
   match '/goods_names', to: 'good_names#names'
- # match '/edit_email', to: 'users#edit_email'
- # match '/update_email', to: 'users#update_email'
   match '/forget_password', to: 'users#forget_password'
   match '/get_password', to: 'users#get_password'
 end

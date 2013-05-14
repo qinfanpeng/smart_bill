@@ -1,0 +1,8 @@
+div class="page-header"
+  h1=t ('group.members')
+
+= render 'members'
+
+= will_paginate(@members)
+
+= link_to t("group.continue_new_member"), new_member_to_group_path(@group), :class => 'btn btn-primary'
