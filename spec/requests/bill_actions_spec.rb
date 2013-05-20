@@ -112,14 +112,7 @@ describe "Bill Actions" do
       context "When I click the link 'my bills'" do
         before { visit my_bills_path }
         it "Then I should see these bills's creater is me" do
-          page.all('td.creater', text: @user.name).size.should == 2 # 注意学习此行代码的写法
-        end
-      end
-
-      context "When I click about_me" do
-        before { visit about_me_bills_path }
-        it "Then I should see these bills's creater or payer must be me" do
-          page.all('td', text: @user.name).size.should == 4 # 此处准备的测试数据中的creater和payer都是当前用户@user,故应是 4
+          page.all('tr').size.should == 3 # 注意学习此行代码的写法, 表头占一行
         end
       end
     end
@@ -127,24 +120,27 @@ describe "Bill Actions" do
     context "settle bills" do
       before do
         @another = User.create!(name: 'another', password: 'another')
-        bill1 = @user.bills.create!(count: 1, payer_id: @user.id)
-        bill2 = @user.bills.create!(count: 2, payer_id: @user.id)
-        bill3 = @user.bills.create!(count: 5 , payer_id: @another.id)
+        @group = Group.create!(name: 'test bill group')
+        JoinedGroupMember.create!(joined_group_id: @group.id, member_id: @user.id)  # 把 user 加入账单组
+        JoinedGroupMember.create!(joined_group_id: @group.id, member_id: @another.id)  # 把另外一个user 加入账单组
+        bill1 = @user.bills.create!(count: 1, payer_id: @user.id, group_id: @group.id)
+        bill2 = @user.bills.create!(count: 2, payer_id: @user.id, group_id: @group.id)
+        bill3 = @user.bills.create!(count: 5 , payer_id: @another.id, group_id: @group.id)
       end
       context "When I click settle_bill" do
-        before { visit settle_bills_path }
+        before { visit settle_group_path(@group) }
         it "Then I shoud be taken to settle bill page" do
-                  current_path.should == settle_bills_path
+          current_path.should == settle_group_path(@group)
         end
         it "And I shoud see people's balance here" do
-          @user.balance(Date.today).should == -1             #默认算的是当前月的差额
-          @another.balance(Date.today).should == 1
+          @user.balance(Date.today, @group).should == -1             #默认算的是当前月的差额
+          @another.balance(Date.today, @group).should == 1
         end
         it "And I shoud see bill's total amount here" do
-          Bill.total(Date.today).should == 8                 # 默认算的是当前月的消费总额
+          Bill.total(Date.today, @group).should == 8                 # 默认算的是当前月的消费总额
         end
         it "And I shoud see bill's averge here" do
-          Bill.averge(Date.today).should == 4                # 默认算的是当前月的平均消费
+          Bill.averge(Date.today, @group).should == 4                # 默认算的是当前月的平均消费
         end
       end
     end

@@ -148,3 +148,19 @@ jQuery ->
   # --------------------------------------------
   ###
   my_token_input('facebook', brief_token_formatter, _prePopulate)
+
+  ###------------------------------------------
+  # 监听账单组下拉列表选择改变
+  #------------------------------------------
+  ###
+  $('#bill_group_id').change ->
+    _value = $(this).val()
+    unless  _value == ''  #不为个人账单组, 因此需准备支付者候选人
+      $.get("/groups/#{_value}/members_select_of",
+      (data)->
+        _select = "<select id='bill_payer_id' name='bill[payer_id]' data-validate='true' data-info='请选择支付人'> "
+        $(data).each ->
+          _select += "<option value=#{this.id}>#{this.name}</option>"
+        _select += "</select>"
+        $("#bill_payer_id_controls").html(_select)
+      )

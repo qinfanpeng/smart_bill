@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
 class GroupsController < ApplicationController
   before_filter :prepare_page_data, only: [:index, :new_member, :my, :members_of]
   before_filter :require_creater, only: [:destroy, :remove_member_of, :new_member_to, :add_member_to]
   before_filter :not_creater, only: [:add_member_to, :remove_member_of]
+  before_filter :prepare_date_data, only: [:bills_of, :settle]
+  before_filter :prepare_page_data, only: [:bills_of, :settle]
   respond_to :html, :json
+
   def new
     @group = Group.new
   end
@@ -67,6 +71,28 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @members = @group.members.paginate(page: params[:page], per_page: 7)
   end
+
+  def members_select_of
+    @group = Group.find(params[:id])
+    @members = @group.members
+    render json: @members, only: [:id, :name]
+  end
+
+  def bills_of
+    @group = Group.find(params[:id])
+    @bills = @group.bills
+      .where('created_at > ? AND created_at < ?',
+         @date.beginning_of_month.beginning_of_day,
+         @date.end_of_month.end_of_day)
+      .paginate(page: params[:page], per_page: 10)
+  end
+
+  def settle # 结算
+    @group = Group.find(params[:id])
+    @users = @group.members
+      .paginate(page: params[:page], per_page: 10)
+  end
+
 
   private
   def not_creater

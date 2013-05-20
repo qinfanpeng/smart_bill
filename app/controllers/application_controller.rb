@@ -21,4 +21,14 @@ class ApplicationController < ActionController::Base
     def prepare_page_data
       @page = params[:page]
     end
+
+    def prepare_date_data
+      @year = Date.today.year
+      @month = Date.today.month
+      if params[:date]
+        @year = params[:date][:year].to_i
+        @month = params[:date][:month].to_i
+      end
+      @date = Date.new(@year, @month)
+    end
 end

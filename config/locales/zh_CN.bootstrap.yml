@@ -249,6 +249,8 @@ zh_CN:
     count: 金额
     payer: 支付者
     new_group: 新建账单组
+    group: 账单组
+    my_bills: 个人账单
   user:
     name: 用户名
     balance: 差额
@@ -270,6 +272,8 @@ zh_CN:
     not_creater_error: 您是账单组的创建者, 默认已经加入其中, 因此您不能对自己进行此项操作
     require_creater_error: 对不起, 只有账单组创建者才能进行此操作
     detail: 账单组详情
+    bills: 组内账单
+    settle: 账单结算
     member:
       add: 添加
 

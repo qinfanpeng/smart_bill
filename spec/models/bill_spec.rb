@@ -21,10 +21,6 @@ describe Bill do
       before { @bill.count = '' }
       it { should_not be_valid }
     end
-    context "When payer is not present" do
-      before { @bill.payer_id = nil }
-      it { should_not be_valid }
-    end
   end
 
 end

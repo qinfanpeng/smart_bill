@@ -1,10 +1,10 @@
 SmartBill::Application.routes.draw do
     resources :goods
 
-  root to: "bills#index"
+  root to: "bills#my"
   resources :bills do
     collection do
-      get 'settle'
+      get :settle
       get :my
       get :about_me
     end
@@ -26,6 +26,9 @@ SmartBill::Application.routes.draw do
       post :add_member_to
       get :members_of
       delete :remove_member_of
+      get :members_select_of
+      get :bills_of
+      get :settle
     end
     collection do
       get :my

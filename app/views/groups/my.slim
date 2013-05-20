@@ -4,8 +4,8 @@ div class="page-header"
 table.table.table-striped
   thead
     tr
-      th= t '.id'
-      th= t '.name'
+      th= t 'public.id'
+      th= t 'group.name'
       th= t 'helpers.actions'
   tbody
     -i=0
@@ -15,6 +15,8 @@ table.table.table-striped
         td= i+@page.to_i * 10
         td= link_to group.name, group
         td
+          = link_to t('group.bills'), bills_of_group_path(group), class: 'btn btn-mini'
+          = link_to t('group.settle'), settle_group_path(group), class: 'btn btn-mini'
           -if group.creater == current_user
             = link_to t('group.manage_member'), members_of_group_path(group), class: 'btn btn-mini'
             = link_to t("helpers.links.destroy"), group_path(group),

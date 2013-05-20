@@ -18,4 +18,12 @@ module BillsHelper
   def goods_names bill
     bill.good_informations.map{|gf| gf.good_name}.join ','
   end
+
+  def handle_members_of_group(group_id)
+    if group_id == 0
+      [current_user]
+    else
+      Group.find(group_id).members
+    end
+  end
 end

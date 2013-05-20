@@ -7,7 +7,7 @@ class BillsController < ApplicationController
   before_filter :prepare_date_data, only: [:index, :my, :about_me, :settle]
   before_filter :prepare_page_data, only: [:index, :my, :about_me, :settle]
   include BillsHelper
-
+  require 'pry'
   respond_to :html, :json
 
   def index
@@ -49,6 +49,7 @@ class BillsController < ApplicationController
   end
 
   def update
+
     respond_with(@bill) do |format|
       if @bill.update_attributes(params[:bill])
         flash[:success] = t('controllers.bill.flashs.update.success')
@@ -65,7 +66,9 @@ class BillsController < ApplicationController
   end
 
   def my
-    @bills = Bill.where('user_id=?', current_user.id)
+    @bills = Bill
+      .where('user_id=?', current_user.id)
+      .where('group_id=? ', 0)
       .where('created_at > ? AND created_at < ?',
          @date.beginning_of_month.beginning_of_day,
          @date.end_of_month.end_of_day)
@@ -78,11 +81,6 @@ class BillsController < ApplicationController
          @date.beginning_of_month.beginning_of_day,
          @date.end_of_month.end_of_day)
       .paginate(page: params[:page], per_page: 10)
-  end
-
-  def settle # 结算
-    @page = params[:page] # 为前端序号所用
-    @users = User.paginate(page: params[:page], per_page: 10)
   end
 
   private
@@ -104,6 +102,10 @@ class BillsController < ApplicationController
     good_name_ids = params[:good_name_ids].split(',') #获取账单中的name id
     _new_name_id = 50000 # 为防止冲突,故为新建账单创建一个比较大初始值
 
+    if params[:bill][:group_id].blank?   #group_id 为空表示用户默认选择的个人组, 故设为0表示个人组
+      params[:bill][:group_id] = 0
+    end
+
     if request.put? # 此时为更新
       @bill = Bill.find(params[:id])
       good_information_ids = params[:good_information_ids].split(' ') #获取最初的账单信息id值
@@ -111,8 +113,6 @@ class BillsController < ApplicationController
     else
       @bill = current_user.bills.build(params[:bill])
     end
-
-
     good_name_ids.each do |id|
       unless id == '0' #当good name id 不为0时表示数据库中已存在对于的name
         if request.put?
@@ -142,16 +142,5 @@ class BillsController < ApplicationController
       end
     end
   end
-
-  def prepare_date_data
-    @year = Date.today.year
-    @month = Date.today.month
-    if params[:date]
-     @year = params[:date][:year].to_i
-      @month = params[:date][:month].to_i
-    end
-    @date = Date.new(@year, @month)
-  end
-
 
 end

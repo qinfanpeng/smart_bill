@@ -25,10 +25,17 @@
     .controls
       = f.text_field :count, :class => 'number_field', data: {info: '请输入合计金额'}
   .control-group
-    = f.label t('.payer') + ':', :class => 'control-label', for: 'bill_payer_id'
+    = f.label t('bill.group') + ':', :class => 'control-label', for: 'bill_group_id'
     .controls
+      = collection_select(:bill, :group_id, current_user.joined_groups, :id, :name,
+      {include_blank: '个人账单(组)' },
+      {data:{info: '请选择账单组'}})
+  .control-group#bill_payer_id_control_group
+    = f.label t('.payer') + ':', :class => 'control-label', for: 'bill_payer_id'
+    .controls#bill_payer_id_controls
       / 下面代码中的第一个{}不能省去，因为 select方法接受两个哈希，分别存放自己的option和html的option
-      = collection_select(:bill, :payer_id, User.all, :id, :name,{selected: current_user.id}, {data:{info: '请选择支付人'}})
+      = collection_select(:bill, :payer_id, handle_members_of_group(@bill.group_id), :id, :name,
+      {data:{info: '请选择支付人'}})
   .form-actions
     -if @bill.new_record?
       = f.submit t('helpers.buttons.Create Bill'), :class => 'btn btn-primary', disable_with: t('public.disable_with')

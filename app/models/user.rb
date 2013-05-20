@@ -16,15 +16,16 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  def paid(date)
+  def paid(date, group)
     self.paid_bills
+      .where('group_id=?', group.id)
       .where('created_at > ? AND created_at < ?',
        date.beginning_of_month.beginning_of_day,
        date.end_of_month.end_of_day)
       .inject(0) {|paid, paid_bill| paid + paid_bill.count }
   end
 
-  def balance(date)
-    self.paid(date) - Bill.averge(date)
+  def balance(date, group)
+    self.paid(date, group) - Bill.averge(date, group)
   end
 end

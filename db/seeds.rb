@@ -8,9 +8,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.delete_all
-User.create!(name: 'admin', password: 'adminadmin', admin: true)
-User.create!(name: 'liuhui', password: 'liuhui')
-User.create!(name: 'qinfanpeng', password: 'qinfanpeng')
+admin = User.create!(name: 'admin', password: 'adminadmin', admin: true)
+liuhui = User.create!(name: 'liuhui', password: 'liuhui')
+qinfanpeng = User.create!(name: 'qinfanpeng', password: 'qinfanpeng')
 p '-----------3 users was added ---------!'
 
 GoodName.delete_all

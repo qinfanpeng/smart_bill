@@ -1,0 +1,37 @@
+div class="page-header"
+  h1
+    span = @group.name
+    span = "--" + t('bill.settle')
+= render 'bills/date', action: settle_group_path(@group)
+table.table.table-striped
+  thead
+    tr
+      th = t 'public.id'
+      th = t 'user.name'
+      th = t 'user.balance'
+  - i = 0
+  tbody
+    -@users.each do |user|
+      - i += 1
+      tr
+        td = i+ @page.to_i * 10
+        td =user.name
+        td
+          -if user.balance(@date, @group) < 0
+            span.label.label-warning
+              = number_to_currency(user.balance(@date, @group), unit: '&yen')
+          -else
+            span.label.label-success
+              '+
+              = number_to_currency(user.balance(@date, @group), unit: '&yen')
+
+
+.alert.alert-info
+  .row-fluid.bill_notice
+    .span2
+      strong= t('bill.total')+': '
+      = number_to_currency(Bill.total(@date, @group), unit: '&yen')
+    .span2
+      strong= t('bill.averge')+': '
+      = number_to_currency(Bill.averge(@date, @group), unit: '&yen')
+= will_paginate(@users)
