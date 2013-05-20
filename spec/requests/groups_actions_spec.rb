@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "Group Actions" do
   before { @user = FactoryGirl.create(:user) }
   let(:group) { @user.created_groups.create!(name: 'test_group1') }
-  let(:another) { User.create!(name: 'another', password: 'another') }
+  let(:another) { FactoryGirl.create(:user, name: 'another') }
   describe "As a signed user" do
     before { signin @user }
     describe "create group" do

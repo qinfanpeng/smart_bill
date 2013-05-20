@@ -8,6 +8,11 @@
       -else
         = f.text_field :name, class: 'text-field', data: {info: '您不能修改自己的用户名'}, readonly: true
   .control-group
+    = f.label t('user.email')+':', class: 'control-label', for: 'user_email'
+    .controls
+      = f.email_field :email, class: 'email-field',
+      data: {info: '请输入邮箱地址'}
+  .control-group
     = f.label t('.password')+':', class: 'control-label', for: 'user_password'
     .controls
       = f.password_field :password, class: 'password-field',

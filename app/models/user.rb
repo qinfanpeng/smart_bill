@@ -2,9 +2,10 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :password, :password_confirmation, :admin, :email
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :password, presence: true, length: {minimum: 6}
-  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/}, allow_nil: true
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/},
+  presence: true, uniqueness: true
   validates_confirmation_of :password
 
   has_many :bills, dependent: :destroy

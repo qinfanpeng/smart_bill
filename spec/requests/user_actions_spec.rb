@@ -69,6 +69,7 @@ describe "User Actions" do
       before do
         visit new_user_path
         fill_in '用户名',  with: 'new_user'
+        fill_in '邮箱地址', with: 'new_user@mail.com'
         fill_in '密码',    with: 'new_user'
         fill_in '确认密码', with: 'new_user'
       end

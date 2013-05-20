@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 FactoryGirl.define do
   factory :user do
-    name      'qinfanpeng'
-    email     'qinfanpeng@gmail.com'
-    password  'qinfanpeng'
+    sequence(:name) { |n| "test_user#{n}" }  # sequence 方法会生成一系列不重复的 user
+    sequence(:email) { |n| "test_user#{n}@gmail.com"}
+    password  'test_user'
   end
 
   factory :good_name do

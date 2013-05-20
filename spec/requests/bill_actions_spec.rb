@@ -119,7 +119,7 @@ describe "Bill Actions" do
 
     context "settle bills" do
       before do
-        @another = User.create!(name: 'another', password: 'another')
+        @another = FactoryGirl.create(:user, name: 'another')
         @group = Group.create!(name: 'test bill group')
         JoinedGroupMember.create!(joined_group_id: @group.id, member_id: @user.id)  # 把 user 加入账单组
         JoinedGroupMember.create!(joined_group_id: @group.id, member_id: @another.id)  # 把另外一个user 加入账单组

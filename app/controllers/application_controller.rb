@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   before_filter :require_sign_in
 
+  def welcome
+
+  end
+
   private
     def require_sign_in
       unless signed_in?

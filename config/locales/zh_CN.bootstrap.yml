@@ -63,6 +63,7 @@ zh_CN:
           attributes:
             name:
               blank: '不能为空'
+              taken: 已被占用
             password:
               blank: '不能为空'
               too_short: '太短'
@@ -74,6 +75,8 @@ zh_CN:
               blank: '不能为空'
             email:
               invalid: '格式无效'
+              blank: 不能为空
+              taken: 已被占用
         good_name:
           attributes:
             name:
@@ -254,6 +257,8 @@ zh_CN:
   user:
     name: 用户名
     balance: 差额
+    new: 用户注册
+    email: 邮箱地址
   group:
     new: 新建账单组
     name: 账单组名
