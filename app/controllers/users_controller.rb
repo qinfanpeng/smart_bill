@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 require 'pry'
 class UsersController < ApplicationController
-  before_filter :require_admin, only: [:index, :new, :create, :destroy]
+  before_filter :require_admin, only: [:index, :destroy]
   before_filter :not_the_admin, only: [:destroy]
   before_filter :require_self, only: [:edit_email, :update_email, :edit_password, :update_password]
   before_filter :prepare_page_data, only: [:index]
-  skip_before_filter :require_sign_in, only: [:forget_password, :get_password]
+  skip_before_filter :require_sign_in, only: [:forget_password, :get_password, :new, :create, :show]
   respond_to :html, :json
 
   def index

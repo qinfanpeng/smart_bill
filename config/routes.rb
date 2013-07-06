@@ -2,6 +2,7 @@ SmartBill::Application.routes.draw do
     resources :goods
 
   root to: "application#welcome"
+
   resources :bills do
     collection do
       get :settle

@@ -26,6 +26,7 @@ group :development, :test do
   gem 'guard-spork', '1.5.0'
   gem 'spork', '0.9.2'
   gem 'factory_girl_rails', '4.1.0'
+  gem 'capistrano'
 end
 
 group :test do

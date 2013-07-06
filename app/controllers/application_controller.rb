@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   before_filter :require_sign_in
-
+  skip_before_filter :require_sign_in, only: [:welcome]
   def welcome
 
   end
