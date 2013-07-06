@@ -33,9 +33,9 @@ jQuery ->
           @_add_a = $("#add_new_goods")
           @_add_a.hide()
           ###
-          $("#token-input-bill_goods_token_input").keypress((e)->
-            console.log e.which
-            if e.which == 32
+          $("#token-input-bill_goods_token_input").keydown((e)->
+            console.log e.keyCode
+            if e.which == 13
               #@_new_name = $(this).val()
               _new_name_id +=1
               $('#bill_goods_token_input').tokenInput('add', {id: '0', name: $(this).val() } )
