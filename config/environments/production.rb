@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 SmartBill::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -12,14 +13,13 @@ SmartBill::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  # config.assets.compress = true
-
+  # config.assets.compress = true 因压缩js时候报错， 暂时不压缩
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  #config.assets.js_compressor  = :uglifier
+
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

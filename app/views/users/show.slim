@@ -6,11 +6,10 @@ p
   br
   = @user.name
 
--if has_email?
-  p
-    strong= t('.email') + ':'
-    br
-      = @user.email
+p
+  strong= t('.email') + ':'
+  br
+    = @user.email
 -if current_user.admin?
   .form-actions
     = link_to t("helpers.links.back"), users_path, :class => 'btn'

@@ -117,8 +117,8 @@ zh_CN:
     user:
       flashs:
         create:
-          success: '添加用户成功'
-          error: '添加用户失败'
+          success: '注册成功， 现在登录试试'
+          error: '注册用户失败'
         update:
           success: '修改用户成功'
           error: '修改用户失败'
@@ -198,7 +198,7 @@ zh_CN:
       name: '用户名'
       password: '密码'
       confirmation: '确认密码'
-      create: '添加'
+      create: '注册'
       update: '修改'
     new:
       title: '添加用户'

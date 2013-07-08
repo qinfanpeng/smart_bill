@@ -1,6 +1,11 @@
 .hero-unit
-  h2 欢迎来到SmartBill
+  h2.center 欢迎来到SmartBill
+  p SmartBill —— 贴心账单小管家. 在这里, 您可以：
+  ul
+    li 管理个人账单消费情况, 账单历史记录，让你的花费一切尽在掌握之中
+    li 管理团队账单消费, 比如家庭成员账单消费, 朋友房屋合租账单消费, 班级账单消费等
   p
-    = 'SmartBill ---- 贴心账单小管家. 在这里, 您不仅可以管理个人账单消费情况, 而且可以管理团队账单消费, 比如家庭成员账单消费, 朋友房屋合租账单消费, 班级账单消费等等. 总之这里为您提供账单一站式解决方案. 现在就去 '
-    = link_to '注册', new_user_path, :class => 'btn btn-primary'
+    = '总之这里为您提供账单一站式解决方案. 现在就去 '
+    - if current_user.nil?
+      = link_to '注册', new_user_path, :class => 'btn btn-primary'
     = ' 试试!'

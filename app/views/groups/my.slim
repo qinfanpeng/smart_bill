@@ -8,20 +8,28 @@ table.table.table-striped
       th= t 'group.name'
       th= t 'helpers.actions'
   tbody
-    -i=0
-    - @groups.each do |group|
-      -i+=1
-      tr
-        td= i+@page.to_i * 10
-        td= link_to group.name, group
-        td
-          = link_to t('group.bills'), bills_of_group_path(group), class: 'btn btn-mini'
-          = link_to t('group.settle'), settle_group_path(group), class: 'btn btn-mini'
-          -if group.creater == current_user
-            = link_to t('group.manage_member'), members_of_group_path(group), class: 'btn btn-mini'
-            = link_to t("helpers.links.destroy"), group_path(group),
+    -unless @groups.size == 0
+      -i=0
+      - @groups.each do |group|
+        -i+=1
+        tr
+          td= i+@page.to_i * 10
+          td= link_to group.name, group
+          td
+            = link_to t('group.bills'), bills_of_group_path(group), class: 'btn btn-mini'
+            = link_to t('group.settle'), settle_group_path(group), class: 'btn btn-mini'
+            -if group.creater == current_user
+              = link_to t('group.manage_member'), members_of_group_path(group), class: 'btn btn-mini'
+              = link_to t("helpers.links.destroy"), group_path(group),
               :method => :delete,
               :data => { :confirm => t("helpers.links.confirm") },
               :class => 'btn btn-mini btn-danger'
+    -else
+      tr
+        td colspan=3
+          center 暂无数据
+
 
 = will_paginate(@groups)
+
+=link_to t("bill.new_group"), new_group_path, :class => 'btn btn-primary'

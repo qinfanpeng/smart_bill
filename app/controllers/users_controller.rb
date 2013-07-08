@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :not_the_admin, only: [:destroy]
   before_filter :require_self, only: [:edit_email, :update_email, :edit_password, :update_password]
   before_filter :prepare_page_data, only: [:index]
+
   skip_before_filter :require_sign_in, only: [:forget_password, :get_password, :new, :create, :show]
   respond_to :html, :json
 
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
     respond_with @user do |format|
       if @user.save
         flash[:success] = t('controllers.user.flashs.create.success')
-        format.html { redirect_to users_url }
+        redirect_to signin_url and return # 直接去掉了后面的过滤器
       else
         flash[:error] = t('controllers.user.flashs.create.error')
       end
