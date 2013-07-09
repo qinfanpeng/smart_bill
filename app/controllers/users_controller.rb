@@ -21,12 +21,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    respond_with @user do |format|
+    respond_to do |format|
       if @user.save
         flash[:success] = t('controllers.user.flashs.create.success')
-        redirect_to signin_url and return # 直接去掉了后面的过滤器
+        format.html { redirect_to signin_url }
       else
         flash[:error] = t('controllers.user.flashs.create.error')
+        format.html { render :new }
       end
     end
   end
@@ -40,9 +41,6 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = t('controllers.user.flashs.destroy.success')
     respond_with @user
-  end
-
-  def edit_email
   end
 
   def edit_password

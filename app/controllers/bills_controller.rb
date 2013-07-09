@@ -4,12 +4,13 @@ class BillsController < ApplicationController
   before_filter :require_creater, only: [:destroy, :update, :edit]
   after_filter :count_about_me, only: [:create, :update, :destroy]
   before_filter :handle_goods_infos , only: [:update, :create]
-  before_filter :prepare_date_data, only: [:index, :my, :about_me, :settle]
-  before_filter :prepare_page_data, only: [:index, :my, :about_me, :settle]
+  before_filter :prepare_date_data, only: [:my, :about_me, :settle]
+  before_filter :prepare_page_data, only: [:my, :about_me, :settle]
   include BillsHelper
   require 'pry'
   respond_to :html, :json
 
+=begin
   def index
     @bills = Bill
       .where('created_at > ? AND created_at < ?',
@@ -19,6 +20,7 @@ class BillsController < ApplicationController
 
     respond_with @bills
   end
+=end
 
   def show
     @bill = Bill.find(params[:id])
@@ -39,11 +41,14 @@ class BillsController < ApplicationController
   end
 
   def create
-    respond_with(@bill) do |format|
+
+    respond_to do |format|
       if @bill.save
         flash[:success] = t('controllers.bill.flashs.create.success')
+        format.html { redirect_to my_bills_path }
       else
         flash[:error] = t('controllers.bill.flashs.update.error')
+        format.html { render :new }
       end
     end
   end

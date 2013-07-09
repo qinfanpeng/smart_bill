@@ -170,3 +170,8 @@ jQuery ->
   hide_notice_token = (_target, to_rm, to_hide)->
     _target.removeClass to_rm
     _target.find(to_hide).remove()
+
+
+  # 让 ‘取消’ 返回上一页
+  $('.btn_cancel').click ->
+     history.go(-1)

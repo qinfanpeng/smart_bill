@@ -41,4 +41,5 @@ SmartBill::Application.routes.draw do
   match '/goods_names', to: 'good_names#names'
   match '/forget_password', to: 'users#forget_password'
   match '/get_password', to: 'users#get_password'
+
 end

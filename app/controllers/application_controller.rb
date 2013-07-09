@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   before_filter :require_sign_in
   skip_before_filter :require_sign_in, only: [:welcome]
   def welcome
-
   end
 
   private
