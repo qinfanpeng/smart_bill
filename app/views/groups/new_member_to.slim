@@ -8,13 +8,18 @@ table.table.table-striped
       th= t 'user.name'
       th= t 'helpers.actions'
   tbody
-    -i=0
-    - @users.each do |user|
-      -i+=1
+    -unless @users.nil?
+      -i=0
+      - @users.each do |user|
+        -i+=1
+        tr
+          td= i+@page.to_i * 10
+          td= link_to user.name, user
+          td
+            = link_to t('group.member.add'), add_member_to_group_path(@group, member_id: user.id ),
+            method: :post, class: 'btn btn-mini'
+      = will_paginate(@users)
+    -else
       tr
-        td= i+@page.to_i * 10
-        td= link_to user.name, user
-        td
-          = link_to t('group.member.add'), add_member_to_group_path(@group, member_id: user.id ), method: :post, class: 'btn btn-mini'
-
-= will_paginate(@users)
+        td colspan=3
+          center 暂无数据

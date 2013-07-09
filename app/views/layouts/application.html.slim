@@ -66,9 +66,9 @@ html lang="en"
             li.nav-header ------快捷菜单------
             - unless current_user.nil?
               li= link_to_unless_current t(".new_bill"), new_bill_path
-              li= link_to t("bill.new_group"), new_group_path
-              li= link_to t("bill.my_bills"), my_bills_path
-              li= link_to t("group.my_groups"), my_groups_path
+              li= link_to_unless_current t("bill.new_group"), new_group_path
+              li= link_to_unless_current t("bill.my_bills"), my_bills_path
+              li= link_to_unless_current t("group.my_groups"), my_groups_path
             -else
               li 暂无操作
       .span9

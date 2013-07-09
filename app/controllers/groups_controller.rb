@@ -23,13 +23,16 @@ class GroupsController < ApplicationController
   end
 
   def new_member_to
+    group_member_ids = '('
+    @group.members.each do |m|
+      group_member_ids << m.id.to_s + ','
+    end
+    group_member_ids.chop! << ')'
+
     @group = Group.find(params[:id])
     if params[:user_name]
       @users = User.where('name like ?', "%#{params[:user_name]}%")
-        .where('id <> ?', @group.creater.id)
-        .paginate(page: params[:page], per_page: 10)
-    else
-      @users = User.where('id <> ?', @group.creater.id)
+        .where("id not in #{group_member_ids}")
         .paginate(page: params[:page], per_page: 10)
     end
   end

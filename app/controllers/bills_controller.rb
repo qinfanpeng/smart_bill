@@ -45,7 +45,11 @@ class BillsController < ApplicationController
     respond_to do |format|
       if @bill.save
         flash[:success] = t('controllers.bill.flashs.create.success')
-        format.html { redirect_to my_bills_path }
+        if @bill.group_id == 0 # 此时为个人账单
+          format.html { redirect_to my_bills_path }
+        else
+          format.html { redirect_to bills_of_group_path(@bill.group) }
+        end
       else
         flash[:error] = t('controllers.bill.flashs.update.error')
         format.html { render :new }
