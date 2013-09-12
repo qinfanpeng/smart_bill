@@ -10,6 +10,9 @@ class Bill < ActiveRecord::Base
   belongs_to :group
   has_many :good_informations, :dependent => :destroy, class_name: :GoodInformation, :inverse_of => :bill
 
+  # delegate :email, to: :user, prefix: true    # 这样就可以直接在bill实例上调用user_email 方法了
+
+
   def self.total(date, group)
     self
       .where('group_id=?', group.id)

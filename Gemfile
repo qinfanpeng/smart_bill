@@ -22,7 +22,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '2.11.0'
-  gem 'cucumber-rails', '1.2.1', require: false
+  gem 'cucumber-rails', '1.2.1' #, require: false
   gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', '1.5.0'
   gem 'spork', '0.9.2'

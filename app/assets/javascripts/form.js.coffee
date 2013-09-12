@@ -172,6 +172,7 @@ jQuery ->
     _target.find(to_hide).remove()
 
 
-  # 让 ‘取消’ 返回上一页
+  # 让 ‘取消’ 返回上一页,
+  # 这里不知为何需用button按钮才行， 用link_to模拟的button没有这个效果
   $('.btn_cancel').click ->
      history.go(-1)
